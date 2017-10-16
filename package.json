@@ -13,6 +13,8 @@
 	"author": "badatfun <j.c.delafields@gmail.com>",
 	"license": "MIT",
 	"dependencies": {
-		"express": "^4.16.2"
+		"express": "^4.16.2",
+		"passport": "^0.4.0",
+		"passport-spotify": "^0.3.1"
 	}
 }
