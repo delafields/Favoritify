@@ -7,7 +7,8 @@
 		"yarn": "1.0.2"
 	},
 	"scripts": {
-		"start": "node index.js"
+		"start": "node index.js",
+		"dev": "nodemon index.js"
 	},
 	"repository": "https://github.com/delafields/Favorite-Music-Visualizer.git",
 	"author": "badatfun <j.c.delafields@gmail.com>",
