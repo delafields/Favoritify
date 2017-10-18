@@ -9,4 +9,9 @@ module.exports = app => {
 	);
 
 	app.get('/auth/spotify/callback', passport.authenticate('spotify'));
+
+	app.get('/api/logout', (req, res) => {
+		req.logout();
+		res.send(req.user);
+	});
 };
