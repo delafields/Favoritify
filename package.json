@@ -8,12 +8,15 @@
 	},
 	"scripts": {
 		"start": "node index.js",
-		"dev": "nodemon index.js"
+		"server": "nodemon index.js",
+		"client": "npm run start --prefix client",
+		"dev": "concurrently \"npm run server\" \"npm run client\""
 	},
 	"repository": "https://github.com/delafields/Favorite-Music-Visualizer.git",
 	"author": "badatfun <j.c.delafields@gmail.com>",
 	"license": "MIT",
 	"dependencies": {
+		"concurrently": "^3.5.0",
 		"cookie-session": "^2.0.0-beta.3",
 		"express": "^4.16.2",
 		"mongoose": "^4.12.3",
