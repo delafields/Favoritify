@@ -1,33 +1,19 @@
 const express = require('express');
-const passport = require('passport');
-const SpotifyStrategy = require('passport-spotify').Strategy;
+const mongoose = require('mongoose');
 const keys = require('./config/keys');
+require('./models/user'); // must come before requiring passport
+require('./services/passport');
+
+// Fix promise deprecation
+mongoose.Promise = global.Promise;
+mongoose.connect(keys.MONGO_DEV_URI, {
+	// Fix connect deprecation
+	useMongoClient: true
+});
 
 const app = express();
 
-passport.use(
-	new SpotifyStrategy(
-		{
-			clientID: keys.SPOTIFY_CLIENT_ID,
-			clientSecret: keys.SPOTIFY_CLIENT_SECRET,
-			callbackURL: '/auth/spotify/callback'
-		},
-		(accessToken, refreshToken, profile, done) => {
-			console.log('accessToken: ', accessToken);
-			console.log('refreshToken: ', refreshToken);
-			console.log('profile: ', profile);
-		}
-	)
-);
-
-app.get(
-	'/auth/spotify',
-	passport.authenticate('spotify', {
-		scope: ['user-read-email', 'user-top-read']
-	})
-);
-
-app.get('/auth/spotify/callback', passport.authenticate('spotify'));
+require('./routes/authRoutes')(app);
 
 const PORT = process.env.PORT || 5000;
 
