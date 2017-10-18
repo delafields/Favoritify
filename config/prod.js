@@ -1,0 +1,6 @@
+module.exports = {
+	SPOTIFY_CLIENT_ID: process.env.SPOTIFY_CLIENT_ID,
+	SPOTIFY_CLIENT_SECRET: process.env.SPOTIFY_CLIENT_SECRET,
+	MONGO_URI: process.env.MONGO_URI,
+	COOKIE_KEY: process.env.COOKIE_KEY
+};

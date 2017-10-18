@@ -8,7 +8,7 @@ require('./services/passport');
 
 // Fix promise deprecation
 mongoose.Promise = global.Promise;
-mongoose.connect(keys.MONGO_DEV_URI, {
+mongoose.connect(keys.MONGO_URI, {
 	// Fix connect deprecation
 	useMongoClient: true
 });
