@@ -4,15 +4,17 @@
 	"main": "index.js",
 	"engines": {
 		"node": "8.5.0",
-		"npm": "5.4.2"
+		"yarn": "1.0.2"
 	},
 	"scripts": {
 		"start": "node index.js",
 		"server": "nodemon index.js",
-		"client": "npm run start --prefix client",
-		"dev": "concurrently \"npm run server\" \"npm run client\"",
+		"client": "(cd ./client && yarn start)",
+		"dev": "concurrently \"yarn server\" \"yarn client\"",
+		"client-install": "(cd ./client && yarn install)",
+		"client-build": "(cd ./client && yarn run build)",
 		"heroku-postbuild":
-			"NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+			"YARN_PRODUCTION=false yarn run client-install && yarn run client-build"
 	},
 	"repository": "https://github.com/delafields/Favorite-Music-Visualizer.git",
 	"author": "badatfun <j.c.delafields@gmail.com>",
