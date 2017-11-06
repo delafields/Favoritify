@@ -10,7 +10,9 @@
 		"start": "node index.js",
 		"server": "nodemon index.js",
 		"client": "npm run start --prefix client",
-		"dev": "concurrently \"npm run server\" \"npm run client\""
+		"dev": "concurrently \"npm run server\" \"npm run client\"",
+		"heroku-postbuild":
+			"NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
 	},
 	"repository": "https://github.com/delafields/Favorite-Music-Visualizer.git",
 	"author": "badatfun <j.c.delafields@gmail.com>",
@@ -21,6 +23,9 @@
 		"express": "^4.16.2",
 		"mongoose": "^4.12.3",
 		"passport": "^0.4.0",
-		"passport-spotify": "^0.3.1"
+		"passport-oauth2-refresh": "^1.0.0",
+		"passport-spotify": "^0.3.1",
+		"redux-thunk": "^2.2.0",
+		"spotify-web-api-node": "^2.5.0"
 	}
 }
