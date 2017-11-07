@@ -9,24 +9,14 @@ class Dashboard extends Component {
 	}
 
 	render() {
-		console.log(this.props);
-
-		console.log(
-			axios
-				.get('https://api.spotify.com/v1/me/top/artists?limit=50', {
-					headers: {
-						Authorization: `Bearer ${this.props.auth.spotifyAccessToken}`
-					}
-				})
-				.then(res => console.log(res.data))
-		);
-
 		return (
 			<div>
 				<h1>I am dashboart</h1>
 				<h2>{this.props.auth.spotifyID}</h2>
 				<h2>{this.props.auth.spotifyRefreshToken}</h2>
+				<a href="/api/logout">logout</a>
 				<button>Click me for ya top shit</button>
+				<a href="/api/refresh_token">Test</a>
 			</div>
 		);
 	}

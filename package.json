@@ -13,8 +13,7 @@
 		"dev": "concurrently \"yarn server\" \"yarn client\"",
 		"client-install": "(cd ./client && yarn install)",
 		"client-build": "(cd ./client && yarn run build)",
-		"heroku-postbuild":
-			"YARN_PRODUCTION=false yarn run client-install && yarn run client-build"
+		"heroku-postbuild": "YARN_PRODUCTION=false yarn run client-install && yarn run client-build"
 	},
 	"repository": "https://github.com/delafields/Favorite-Music-Visualizer.git",
 	"author": "badatfun <j.c.delafields@gmail.com>",
@@ -28,6 +27,7 @@
 		"passport-oauth2-refresh": "^1.0.0",
 		"passport-spotify": "^0.3.1",
 		"redux-thunk": "^2.2.0",
+		"request": "^2.83.0",
 		"spotify-web-api-node": "^2.5.0"
 	}
 }
