@@ -3,11 +3,11 @@ import('../styles/Landing.css');
 
 const Landing = () => {
 	return (
-		<div className="landing-wrapper">
-			<div className="title-box">
+		<div className="site">
+			<div className="title-wrapper">
 				<h1 className="title">What Kind Of Music Do You Like?</h1>
 				<button className="spotify-login-button">
-					<a className="spotify-auth-text" href="/auth/spotify">
+					<a className="spotify-login-text" href="/auth/spotify">
 						Sign in with Spotify
 					</a>
 				</button>

@@ -12,11 +12,17 @@
 	},
 	"dependencies": {
 		"axios": "^0.16.2",
+		"material-ui": "^0.19.4",
 		"react": "^16.0.0",
 		"react-dom": "^16.0.0",
 		"react-redux": "^5.0.6",
+		"react-redux-form": "^1.16.0",
 		"react-router-dom": "^4.2.2",
-		"redux": "^3.7.2"
+		"recharts": "^1.0.0-beta.1",
+		"redux": "^3.7.2",
+		"redux-form": "^7.1.2",
+		"redux-form-material-ui": "^4.3.0",
+		"request": "^2.83.0"
 	},
 	"devDependencies": {
 		"react-scripts": "1.0.14"
