@@ -52,8 +52,7 @@ module.exports = app => {
 		});
 	});
 
-	app.get('/api/fetch_data', (req, res) => {
+	app.post('/api/fetch_data', (req, res) => {
 		const { TimePeriod, NumResults, ArtistsOrTracks, access_token } = req.body;
-		res.send(TimePeriod);
 	});
 };
