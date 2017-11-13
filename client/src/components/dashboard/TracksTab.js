@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { fetchArtistData } from '../../actions';
+//import { connect } from 'react-redux';
+//import { bindActionCreators } from 'redux';
+//import { fetchArtistData } from '../../actions';
 
 const styles = {
 	headline: {

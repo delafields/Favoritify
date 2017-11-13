@@ -20,7 +20,7 @@ export const fetchRefreshToken = () => async dispatch => {
 };
 
 export const fetchArtistData = () => dispatch => {
-	let artistData = [];
+	let artistData = {};
 
 	axios.get('/api/refresh_token').then(response => {
 		let { access_token } = response.data;
@@ -39,7 +39,15 @@ export const fetchArtistData = () => dispatch => {
 				bandImg: band.images[0].url
 			}));
 
-			artistData.push(filtSTA);
+			/*
+			let filtSTA = tempSTA.reduce((array, obj) => {
+				array[obj.name] = obj.name;
+				array[obj.genres] = obj.genres;
+				return array;
+			}, {});
+			*/
+
+			artistData.short = filtSTA;
 		});
 
 		const MTAOptions = {
@@ -55,7 +63,7 @@ export const fetchArtistData = () => dispatch => {
 				bandImg: band.images[0].url
 			}));
 
-			artistData.push(filtMTA);
+			artistData.med = filtMTA;
 		});
 
 		const LTAOptions = {
@@ -71,9 +79,8 @@ export const fetchArtistData = () => dispatch => {
 				bandImg: band.images[0].url
 			}));
 
-			artistData.push(filtLTA);
+			artistData.long = filtLTA;
 		});
-
 		dispatch({ type: FETCH_ARTIST_DATA, payload: artistData });
 	});
 };
