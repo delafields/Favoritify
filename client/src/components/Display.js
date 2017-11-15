@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 
-import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/RaisedButton';
 import AppBar from 'material-ui/AppBar';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import { blueGrey900, indigoA700, purpleA400 } from 'material-ui/styles/colors';
@@ -16,31 +16,61 @@ class Display extends Component {
 	}
 
 	render() {
+		const styles = {
+			appBar: {
+				title: {
+					textAlign: 'center',
+					color: 'white',
+					fontWeight: '300'
+				},
+				background: {
+					backgroundColor: blueGrey900
+				},
+				button: {
+					marginTop: '10px'
+				}
+			},
+			tabs: {
+				inkBar: {
+					background: blueGrey900
+				},
+				label: {
+					color: 'white'
+				},
+				artistsTab: {
+					backgroundColor: indigoA700
+				},
+				tracksTab: {
+					backgroundColor: purpleA400
+				}
+			}
+		};
+
 		return (
 			<div>
 				<AppBar
 					title="WHAT KIND OF MUSIC DO YOU LIKE?"
-					titleStyle={{
-						textAlign: 'center',
-						color: 'white',
-						fontWeight: '300'
-					}}
-					showMenuIconButton={false}
-					style={{ backgroundColor: blueGrey900 }}
-					iconElementRight={<RaisedButton label="logout" href="/api/logout" />}
+					titleStyle={styles.appBar.title}
+					style={styles.appBar.background}
+					iconElementLeft={<h4>{this.props.auth.spotifyID} </h4>}
+					iconElementRight={
+						<FlatButton
+							style={styles.appBar.button}
+							label="logout"
+							href="/api/logout"
+						/>
+					}
 				/>
-				<Tabs inkBarStyle={{ background: 'white' }}>
+				<Tabs inkBarStyle={styles.tabs.inkBar}>
 					<Tab
-						label={<span style={{ color: 'white' }}>Artists</span>}
-						style={{ backgroundColor: indigoA700 }}
+						label={<span style={styles.tabs.label}>Artists</span>}
+						style={styles.tabs.artistsTab}
 					>
 						<ArtistsTab />
 					</Tab>
 					<Tab
-						label={<span style={{ color: 'white' }}>Tracks</span>}
-						style={{
-							backgroundColor: purpleA400
-						}}
+						label={<span style={styles.tabs.label}>Tracks</span>}
+						style={styles.tabs.tracksTab}
 					>
 						<TracksTab />
 					</Tab>

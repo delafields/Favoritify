@@ -8,6 +8,7 @@ import { formatResponse } from '../../../utils/format_response';
 
 import CircularProgress from 'material-ui/CircularProgress';
 import { Step, Stepper, StepButton } from 'material-ui/Stepper';
+import { blueGrey900, indigoA700, purpleA400 } from 'material-ui/styles/colors';
 
 import Graph from '../Graph';
 import WordCloud from '../WordCloud';
@@ -113,10 +114,7 @@ class ArtistsTab extends Component {
 				return (
 					<div>
 						<Avatars artists={this.state.shortTermArtists} />
-
-						<AvatarCard title="Top Artists of The Short Term">
-							<Graph data={this.state.shortTermGenres} />
-						</AvatarCard>
+						<Graph data={this.state.shortTermGenres} />
 						<WordCloud
 							tags={this.state.shortTermExtraGenres}
 							colorOptions={shortCloudColor}
@@ -158,34 +156,41 @@ class ArtistsTab extends Component {
 			Loaded = <CircularProgress size={80} thickness={5} />;
 		} else {
 			Loaded = (
-				<div>
-					<div style={{ width: '100%', maxWidth: 700, margin: 'auto' }}>
-						<Stepper linear={false} activeStep={stepIndex}>
-							<Step>
-								<StepButton onClick={() => this.setState({ stepIndex: 0 })}>
-									Short Term
-								</StepButton>
-							</Step>
-							<Step>
-								<StepButton onClick={() => this.setState({ stepIndex: 1 })}>
-									Medium Term
-								</StepButton>
-							</Step>
-							<Step>
-								<StepButton onClick={() => this.setState({ stepIndex: 2 })}>
-									Long Term
-								</StepButton>
-							</Step>
-						</Stepper>
-						{this.getStepContent(stepIndex)}
-					</div>
+				<div style={{ width: '100%', margin: 'auto' }}>
+					<Stepper linear={false} activeStep={stepIndex}>
+						<Step>
+							<StepButton
+								icon={null}
+								onClick={() => this.setState({ stepIndex: 0 })}
+							>
+								Short Term
+							</StepButton>
+						</Step>
+						<Step>
+							<StepButton
+								icon={null}
+								onClick={() => this.setState({ stepIndex: 1 })}
+							>
+								Medium Term
+							</StepButton>
+						</Step>
+						<Step>
+							<StepButton
+								icon={null}
+								onClick={() => this.setState({ stepIndex: 2 })}
+							>
+								Long Term
+							</StepButton>
+						</Step>
+					</Stepper>
+					{this.getStepContent(stepIndex)}
 				</div>
 			);
 		}
 
 		return (
 			<div>
-				<h2>{this.props.auth.spotifyID}</h2>
+				{/*<h2>{this.props.auth.spotifyID}</h2>*/}
 				{Loaded}
 			</div>
 		);

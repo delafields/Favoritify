@@ -1,29 +1,52 @@
 import React from 'react';
 import Avatar from 'material-ui/Avatar';
-import List from 'material-ui/List/List';
-import ListItem from 'material-ui/List/ListItem';
+//import List from 'material-ui/List/List';
+//import ListItem from 'material-ui/List/ListItem';
+import { GridList, GridTile } from 'material-ui/GridList';
+
+import { Card, CardHeader, CardMedia } from 'material-ui/Card';
 import ReactTooltip from 'react-tooltip';
 
 const Avatars = props => {
 	const artists = props.artists;
-	const flexContainer = {
-		display: 'flex',
-		flexDirection: 'row',
-		padding: 0
+
+	const styles = {
+		root: {
+			display: 'flex',
+			flexWrap: 'wrap',
+			justifyContent: 'space-around'
+		},
+		gridList: {
+			width: '100%',
+			height: 450,
+			overflowY: 'auto'
+		}
 	};
 
-	const listArtists = artists.map(artist => (
-		<ListItem key={artist.artistName}>
-			<a data-tip data-for={artist.artistName}>
-				<Avatar src={artist.artistImage} size={50} />
-			</a>
-			<ReactTooltip id={artist.artistName}>
-				<span>{artist.artistName}</span>
-			</ReactTooltip>
-		</ListItem>
-	));
-
-	return <List style={flexContainer}>{listArtists}</List>;
+	return (
+		<Card style={{ textAlign: 'center' }}>
+			<CardHeader
+				title="YOUR TOP 20 ARTISTS"
+				titleStyle={{ fontSize: '2em', fontWeight: 300, color: 'white' }}
+			/>
+			<CardMedia>
+				<div style={styles.root}>
+					<GridList cols={4} cellHeight={200} style={styles.gridList}>
+						{artists.map(artist => (
+							<GridTile key={artist.artistName}>
+								<img
+									src={artist.artistImage}
+									height={'100%'}
+									width={'100%'}
+									alt={artist.artistName}
+								/>
+							</GridTile>
+						))}
+					</GridList>
+				</div>
+			</CardMedia>
+		</Card>
+	);
 };
 
 export default Avatars;
