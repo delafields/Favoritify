@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 import Landing from './Landing';
-import Dashboard from './Dashboard';
+import Display from './Display';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -15,7 +15,7 @@ export default class App extends Component {
 				<BrowserRouter>
 					<div>
 						<Route exact path="/" component={Landing} />
-						<Route exact path="/dashboard" component={Dashboard} />
+						<Route exact path="/dashboard" component={Display} />
 					</div>
 				</BrowserRouter>
 			</MuiThemeProvider>

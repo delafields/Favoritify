@@ -1,5 +1,6 @@
 import axios from 'axios';
 import request from 'request';
+import { formatResponse } from '../utils/format_response';
 import {
 	FETCH_USER,
 	FETCH_REFRESH_TOKEN,
@@ -20,69 +21,48 @@ export const fetchRefreshToken = () => async dispatch => {
 };
 
 export const fetchArtistData = () => dispatch => {
-	let artistData = {};
+	const artistsResponse = {};
 
 	axios.get('/api/refresh_token').then(response => {
 		let { access_token } = response.data;
 
-		const STAOptions = {
-			url: `https://api.spotify.com/v1/me/top/artists?limit=20&time_range=short_term`,
+		const url =
+			'https://api.spotify.com/v1/me/top/artists?limit=20&time_range=';
+
+		const shortTermOptions = {
+			url: `${url}short_term`,
 			headers: { Authorization: `Bearer ${access_token}` },
 			json: true
 		};
 
-		request.get(STAOptions, (error, response, body) => {
-			let tempSTA = body.items;
-
-			let filtSTA = tempSTA.map(band => ({
-				bandName: band.name,
-				bandImg: band.images[0].url
-			}));
-
-			/*
-			let filtSTA = tempSTA.reduce((array, obj) => {
-				array[obj.name] = obj.name;
-				array[obj.genres] = obj.genres;
-				return array;
-			}, {});
-			*/
-
-			artistData.short = filtSTA;
-		});
-
-		const MTAOptions = {
-			url: `https://api.spotify.com/v1/me/top/artists?limit=20&time_range=medium_term`,
+		const medTermOptions = {
+			url: `${url}medium_term`,
 			headers: { Authorization: `Bearer ${access_token}` },
 			json: true
 		};
-		request.get(MTAOptions, (error, response, body) => {
-			let tempMTA = body.items;
 
-			let filtMTA = tempMTA.map(band => ({
-				bandName: band.name,
-				bandImg: band.images[0].url
-			}));
-
-			artistData.med = filtMTA;
-		});
-
-		const LTAOptions = {
-			url: `https://api.spotify.com/v1/me/top/artists?limit=20&time_range=long_term`,
+		const longTermOptions = {
+			url: `${url}long_term`,
 			headers: { Authorization: `Bearer ${access_token}` },
 			json: true
 		};
-		request.get(LTAOptions, (error, response, body) => {
-			const tempLTA = body.items;
 
-			let filtLTA = tempLTA.map(band => ({
-				bandName: band.name,
-				bandImg: band.images[0].url
-			}));
-
-			artistData.long = filtLTA;
+		request.get(shortTermOptions, (error, response, body) => {
+			let result = formatResponse(body.items);
+			artistsResponse['short'] = result;
 		});
-		dispatch({ type: FETCH_ARTIST_DATA, payload: artistData });
+
+		request.get(medTermOptions, (error, response, body) => {
+			let result = formatResponse(body.items);
+			artistsResponse['medium'] = result;
+		});
+
+		request.get(longTermOptions, (error, response, body) => {
+			let result = formatResponse(body.items);
+			artistsResponse['long'] = result;
+		});
 	});
+	dispatch({ type: FETCH_ARTIST_DATA, payload: artistsResponse });
 };
 
 export const fetchTrackData = () => dispatch => {

@@ -7,10 +7,10 @@ import AppBar from 'material-ui/AppBar';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import { blueGrey900, indigoA700, purpleA400 } from 'material-ui/styles/colors';
 
-import ArtistsTab from './dashboard/ArtistsTab';
-import TracksTab from './dashboard/TracksTab';
+import ArtistsTab from './dashboard/Artists/ArtistsTab';
+import TracksTab from './dashboard/Tracks/TracksTab';
 
-class Dashboard extends Component {
+class Display extends Component {
 	componentDidMount() {
 		this.props.fetchUser();
 	}
@@ -54,4 +54,4 @@ function mapStateToProps({ auth }) {
 	return { auth };
 }
 
-export default connect(mapStateToProps, actions)(Dashboard);
+export default connect(mapStateToProps, actions)(Display);

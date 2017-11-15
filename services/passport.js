@@ -33,7 +33,6 @@ passport.use(
 			// If user doesn't exist
 			const user = await new User({
 				spotifyID: profile.id,
-				spotifyAccessToken: accessToken,
 				spotifyRefreshToken: refreshToken
 			}).save();
 			done(null, user);
