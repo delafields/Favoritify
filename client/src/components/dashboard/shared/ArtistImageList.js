@@ -16,7 +16,7 @@ const ArtistImageList = props => {
 		},
 		gridList: {
 			width: '100%',
-			height: '1000px',
+			height: '1200px',
 			overflowY: 'auto'
 		}
 	};
