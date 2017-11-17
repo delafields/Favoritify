@@ -116,8 +116,7 @@ class ArtistsTab extends Component {
 				this.setState({
 					longTermArtists: artistInfo,
 					longTermGenres: frequentFormatted,
-					longTermExtraGenres: extraFormatted,
-					loading: false
+					longTermExtraGenres: extraFormatted
 				});
 			});
 
@@ -141,7 +140,8 @@ class ArtistsTab extends Component {
 				let result = formatTrackResponse(body.items);
 
 				this.setState({
-					longTermTracks: result
+					longTermTracks: result,
+					loading: false
 				});
 			});
 		});
