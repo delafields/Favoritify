@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-//import { fetchArtistData } from '../../../actions';
 import axios from 'axios';
 import request from 'request';
+import TransitionGroup from 'react-transition-group/TransitionGroup';
 
 import { formatResponse } from '../../../utils/format_response';
 
 import CircularProgress from 'material-ui/CircularProgress';
-import { Step, Stepper, StepButton } from 'material-ui/Stepper';
 import { blueGrey900, indigoA700, purpleA400 } from 'material-ui/styles/colors';
 
-import Graph from '../Graph';
-import WordCloud from '../WordCloud';
-import Avatars from './Avatars';
-import AvatarCard from '../Cards';
+import MyStepper from '../shared/Stepper';
+import StepContent from '../shared/StepContent';
 
 class ArtistsTab extends Component {
 	constructor(props) {
@@ -106,42 +103,47 @@ class ArtistsTab extends Component {
 	}
 
 	getStepContent(stepIndex) {
-		const shortCloudColor = { luminosity: 'light', hue: 'blue' };
-		const medCloudColor = { luminosity: 'bright', hue: 'blue' };
-		const longCloudColor = { luminosity: 'dark', hue: 'blue' };
+		const cloudColor = {
+			short: {
+				luminosity: 'bright',
+				hue: 'purple'
+			},
+			med: {
+				luminosity: 'bright',
+				hue: 'pink'
+			},
+			long: {
+				luminosity: 'bright',
+				hue: 'blue'
+			}
+		};
 		switch (stepIndex) {
 			case 0:
 				return (
-					<div>
-						<Avatars artists={this.state.shortTermArtists} />
-						<Graph data={this.state.shortTermGenres} />
-						<WordCloud
-							tags={this.state.shortTermExtraGenres}
-							colorOptions={shortCloudColor}
-						/>
-					</div>
+					<StepContent
+						avatarImages={this.state.shortTermArtists}
+						graphData={this.state.shortTermGenres}
+						extraGenres={this.state.shortTermExtraGenres}
+						cloudColors={cloudColor.short}
+					/>
 				);
 			case 1:
 				return (
-					<div>
-						<Avatars artists={this.state.medTermArtists} />
-						<Graph data={this.state.medTermGenres} />
-						<WordCloud
-							tags={this.state.medTermExtraGenres}
-							colorOptions={medCloudColor}
-						/>
-					</div>
+					<StepContent
+						avatarImages={this.state.medTermArtists}
+						graphData={this.state.medTermGenres}
+						extraGenres={this.state.medTermExtraGenres}
+						cloudColors={cloudColor.med}
+					/>
 				);
 			case 2:
 				return (
-					<div>
-						<Avatars artists={this.state.longTermArtists} />
-						<Graph data={this.state.longTermGenres} />
-						<WordCloud
-							tags={this.state.longTermExtraGenres}
-							colorOptions={longCloudColor}
-						/>
-					</div>
+					<StepContent
+						avatarImages={this.state.longTermArtists}
+						graphData={this.state.longTermGenres}
+						extraGenres={this.state.longTermExtraGenres}
+						cloudColors={cloudColor.long}
+					/>
 				);
 			default:
 				return <h1>Error :/</h1>;
@@ -150,50 +152,44 @@ class ArtistsTab extends Component {
 
 	render() {
 		const { stepIndex } = this.state;
-
 		let Loaded;
+
+		const styles = {
+			loadingContainer: {
+				display: 'flex',
+				flexDirection: 'column',
+				justifyContent: 'center',
+				alignItems: 'center',
+				width: '100%',
+				height: 450
+			},
+			loadedContainer: {
+				width: '100%',
+				margin: 'auto'
+			}
+		};
+
 		if (this.state.loading) {
-			Loaded = <CircularProgress size={80} thickness={5} />;
+			Loaded = (
+				<div style={styles.loadingContainer}>
+					<CircularProgress size={200} thickness={5} color={purpleA400} />
+				</div>
+			);
 		} else {
 			Loaded = (
-				<div style={{ width: '100%', margin: 'auto' }}>
-					<Stepper linear={false} activeStep={stepIndex}>
-						<Step>
-							<StepButton
-								icon={null}
-								onClick={() => this.setState({ stepIndex: 0 })}
-							>
-								Short Term
-							</StepButton>
-						</Step>
-						<Step>
-							<StepButton
-								icon={null}
-								onClick={() => this.setState({ stepIndex: 1 })}
-							>
-								Medium Term
-							</StepButton>
-						</Step>
-						<Step>
-							<StepButton
-								icon={null}
-								onClick={() => this.setState({ stepIndex: 2 })}
-							>
-								Long Term
-							</StepButton>
-						</Step>
-					</Stepper>
+				<div>
+					<MyStepper
+						stepIndex={stepIndex}
+						handleShortClick={() => this.setState({ stepIndex: 0 })}
+						handleMedClick={() => this.setState({ stepIndex: 1 })}
+						handleLongClick={() => this.setState({ stepIndex: 2 })}
+					/>
 					{this.getStepContent(stepIndex)}
 				</div>
 			);
 		}
 
-		return (
-			<div>
-				{/*<h2>{this.props.auth.spotifyID}</h2>*/}
-				{Loaded}
-			</div>
-		);
+		return <div>{Loaded}</div>;
 	}
 }
 
@@ -203,5 +199,4 @@ function mapStateToProps(state) {
 	};
 }
 
-//export default connect(mapStateToProps, { fetchArtistData })(ArtistsTab);
 export default connect(mapStateToProps)(ArtistsTab);

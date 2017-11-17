@@ -8,6 +8,7 @@ const WordCloud = props => {
 			colorOptions={props.colorOptions}
 			minSize={12}
 			maxSize={35}
+			style={{ fontFamily: 'Lato, sans-serif', textTransform: 'uppercase' }}
 		/>
 	);
 };
