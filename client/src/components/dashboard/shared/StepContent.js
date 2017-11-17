@@ -30,6 +30,18 @@ const StepContent = props => {
 					</h1>
 					<ArtistImageList artists={props.artistImages} />
 				</Paper>
+				<Paper zdepth={2} rounded={false} style={{ backgroundColor: 'white' }}>
+					<h1
+						style={{
+							textAlign: 'center',
+							fontWeight: '300',
+							color: indigoA700
+						}}
+					>
+						Top Tracks
+					</h1>
+					<TrackImageList artists={props.trackImages} />
+				</Paper>
 			</div>
 			<div style={{ flex: 2, height: '100%' }}>
 				<Paper zdepth={2} rounded={false} style={{ backgroundColor: 'white' }}>
@@ -60,18 +72,6 @@ const StepContent = props => {
 					/>
 				</Paper>
 			</div>
-			<Paper zdepth={2} rounded={false} style={{ backgroundColor: 'white' }}>
-				<h1
-					style={{
-						textAlign: 'center',
-						fontWeight: '300',
-						color: indigoA700
-					}}
-				>
-					Top Artists
-				</h1>
-				<TrackImageList artists={props.trackImages} />
-			</Paper>
 		</div>
 	);
 };

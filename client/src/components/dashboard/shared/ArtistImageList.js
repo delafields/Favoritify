@@ -24,22 +24,26 @@ const ArtistImageList = props => {
 	return (
 		<div style={styles.root}>
 			<GridList cols={2} cellHeight="auto" padding={10} style={styles.gridList}>
-				{artists.map(artist => (
-					<GridTile
-						key={artist.artistName}
-						title={artist.artistName}
-						titleBackground="linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
-						titlePosition="top"
-						style={{ fontWeight: '300', maxHeight: '200' }}
-					>
-						<img
-							src={artist.artistImage}
-							height={'100%'}
-							width={'100%'}
-							alt={artist.artistName}
-						/>
-					</GridTile>
-				))}
+				{artists ? (
+					artists.map(artist => (
+						<GridTile
+							key={artist.artistName}
+							title={artist.artistName}
+							titleBackground="linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
+							titlePosition="top"
+							style={{ fontWeight: '300', maxHeight: '200' }}
+						>
+							<img
+								src={artist.artistImage}
+								height={'100%'}
+								width={'100%'}
+								alt={artist.artistName}
+							/>
+						</GridTile>
+					))
+				) : (
+					<h1>Refresh the Page</h1>
+				)}
 			</GridList>
 		</div>
 	);
