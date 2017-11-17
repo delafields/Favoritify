@@ -4,7 +4,10 @@ import axios from 'axios';
 import request from 'request';
 import TransitionGroup from 'react-transition-group/TransitionGroup';
 
-import { formatResponse } from '../../../utils/format_response';
+import {
+	formatArtistResponse,
+	formatTrackResponse
+} from '../../../utils/format_response';
 
 import CircularProgress from 'material-ui/CircularProgress';
 import { blueGrey900, indigoA700, purpleA400 } from 'material-ui/styles/colors';
@@ -17,12 +20,15 @@ class ArtistsTab extends Component {
 		super(props);
 		this.state = {
 			shortTermArtists: '',
+			shortTermTracks: '',
 			shortTermGenres: [],
 			shortTermExtraGenres: [],
 			medTermArtists: '',
+			medTermTracks: '',
 			medTermGenres: [],
 			medTermExtraGenres: [],
 			longTermArtists: '',
+			longTermTracks: '',
 			longTermGenres: [],
 			longTermExtraGenres: [],
 			loading: true,
@@ -39,29 +45,44 @@ class ArtistsTab extends Component {
 		axios.get('/api/refresh_token').then(response => {
 			let { access_token } = response.data;
 
-			const url =
-				'https://api.spotify.com/v1/me/top/artists?limit=20&time_range=';
-
-			const shortTermOptions = {
-				url: `${url}short_term`,
+			const shortTermArtistsOptions = {
+				url: `https://api.spotify.com/v1/me/top/artists?limit=20&time_range=short_term`,
 				headers: { Authorization: `Bearer ${access_token}` },
 				json: true
 			};
 
-			const medTermOptions = {
-				url: `${url}medium_term`,
+			const shortTermTracksOptions = {
+				url: `https://api.spotify.com/v1/me/top/tracks?limit=20&time_range=short_term`,
 				headers: { Authorization: `Bearer ${access_token}` },
 				json: true
 			};
 
-			const longTermOptions = {
-				url: `${url}long_term`,
+			const medTermArtistsOptions = {
+				url: `https://api.spotify.com/v1/me/top/artists?limit=20&time_range=medium_term`,
 				headers: { Authorization: `Bearer ${access_token}` },
 				json: true
 			};
 
-			request.get(shortTermOptions, (error, response, body) => {
-				let result = formatResponse(body.items);
+			const medTermTracksOptions = {
+				url: `https://api.spotify.com/v1/me/top/tracks?limit=20&time_range=medium_term`,
+				headers: { Authorization: `Bearer ${access_token}` },
+				json: true
+			};
+
+			const longTermArtistsOptions = {
+				url: `https://api.spotify.com/v1/me/top/artists?limit=20&time_range=long_term`,
+				headers: { Authorization: `Bearer ${access_token}` },
+				json: true
+			};
+
+			const longTermTracksOptions = {
+				url: `https://api.spotify.com/v1/me/top/tracks?limit=20&time_range=medium_term`,
+				headers: { Authorization: `Bearer ${access_token}` },
+				json: true
+			};
+
+			request.get(shortTermArtistsOptions, (error, response, body) => {
+				let result = formatArtistResponse(body.items);
 				let artistInfo = result[0];
 				let frequentFormatted = result[1];
 				let extraFormatted = result[2];
@@ -73,8 +94,8 @@ class ArtistsTab extends Component {
 				});
 			});
 
-			request.get(medTermOptions, (error, response, body) => {
-				let result = formatResponse(body.items);
+			request.get(medTermArtistsOptions, (error, response, body) => {
+				let result = formatArtistResponse(body.items);
 				let artistInfo = result[0];
 				let frequentFormatted = result[1];
 				let extraFormatted = result[2];
@@ -86,8 +107,8 @@ class ArtistsTab extends Component {
 				});
 			});
 
-			request.get(longTermOptions, (error, response, body) => {
-				let result = formatResponse(body.items);
+			request.get(longTermArtistsOptions, (error, response, body) => {
+				let result = formatArtistResponse(body.items);
 				let artistInfo = result[0];
 				let frequentFormatted = result[1];
 				let extraFormatted = result[2];
@@ -97,6 +118,30 @@ class ArtistsTab extends Component {
 					longTermGenres: frequentFormatted,
 					longTermExtraGenres: extraFormatted,
 					loading: false
+				});
+			});
+
+			request.get(shortTermTracksOptions, (error, response, body) => {
+				let result = formatTrackResponse(body.items);
+
+				this.setState({
+					shortTermTracks: result
+				});
+			});
+
+			request.get(medTermTracksOptions, (error, response, body) => {
+				let result = formatTrackResponse(body.items);
+
+				this.setState({
+					medTermTracks: result
+				});
+			});
+
+			request.get(longTermTracksOptions, (error, response, body) => {
+				let result = formatTrackResponse(body.items);
+
+				this.setState({
+					longTermTracks: result
 				});
 			});
 		});
@@ -121,28 +166,31 @@ class ArtistsTab extends Component {
 			case 0:
 				return (
 					<StepContent
-						avatarImages={this.state.shortTermArtists}
+						artistImages={this.state.shortTermArtists}
 						graphData={this.state.shortTermGenres}
 						extraGenres={this.state.shortTermExtraGenres}
 						cloudColors={cloudColor.short}
+						trackImages={this.state.shortTermTracks}
 					/>
 				);
 			case 1:
 				return (
 					<StepContent
-						avatarImages={this.state.medTermArtists}
+						artistImages={this.state.medTermArtists}
 						graphData={this.state.medTermGenres}
 						extraGenres={this.state.medTermExtraGenres}
 						cloudColors={cloudColor.med}
+						trackImages={this.state.medTermTracks}
 					/>
 				);
 			case 2:
 				return (
 					<StepContent
-						avatarImages={this.state.longTermArtists}
+						artistImages={this.state.longTermArtists}
 						graphData={this.state.longTermGenres}
 						extraGenres={this.state.longTermExtraGenres}
 						cloudColors={cloudColor.long}
+						trackImages={this.state.longTermTracks}
 					/>
 				);
 			default:

@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 
-export function formatResponse(response) {
+export function formatArtistResponse(response) {
 	let artistInfo = response.map(band => ({
 		artistName: band.name,
 		artistImage: band.images[0].url
@@ -45,4 +45,13 @@ export function formatResponse(response) {
 	});
 
 	return [artistInfo, frequentFormatted, extraFormatted];
+}
+
+export function formatTrackResponse(response) {
+	let artistInfo = response.map(track => ({
+		trackName: track.name,
+		artistName: track.artists['0'].name,
+		trackImage: track.album.images[0].url
+	}));
+	return artistInfo;
 }

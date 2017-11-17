@@ -2,6 +2,7 @@ import React from 'react';
 import ArtistImageList from '../shared/ArtistImageList';
 import WordCloud from '../shared/WordCloud';
 import Graph from '../shared/Graph';
+import TrackImageList from '../shared/TrackImageList';
 
 import { Card, CardHeader, CardMedia } from 'material-ui/Card';
 import Paper from 'material-ui/Paper';
@@ -27,7 +28,7 @@ const StepContent = props => {
 					>
 						Top Artists
 					</h1>
-					<ArtistImageList artists={props.avatarImages} />
+					<ArtistImageList artists={props.artistImages} />
 				</Paper>
 			</div>
 			<div style={{ flex: 2, height: '100%' }}>
@@ -59,6 +60,18 @@ const StepContent = props => {
 					/>
 				</Paper>
 			</div>
+			<Paper zdepth={2} rounded={false} style={{ backgroundColor: 'white' }}>
+				<h1
+					style={{
+						textAlign: 'center',
+						fontWeight: '300',
+						color: indigoA700
+					}}
+				>
+					Top Artists
+				</h1>
+				<TrackImageList artists={props.trackImages} />
+			</Paper>
 		</div>
 	);
 };

@@ -24,6 +24,7 @@ const Graph = props => {
 				>
 					{props.data.map((entry, index) => (
 						<Cell
+							key={index}
 							fill={randomMC.getColor({
 								shades: ['A400', 'A700']
 							})}

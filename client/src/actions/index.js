@@ -1,6 +1,6 @@
 import axios from 'axios';
 import request from 'request';
-import { formatResponse } from '../utils/format_response';
+import { formatArtistResponse } from '../utils/format_response';
 import {
 	FETCH_USER,
 	FETCH_REFRESH_TOKEN,
@@ -48,17 +48,17 @@ export const fetchArtistData = () => dispatch => {
 		};
 
 		request.get(shortTermOptions, (error, response, body) => {
-			let result = formatResponse(body.items);
+			let result = formatArtistResponse(body.items);
 			artistsResponse['short'] = result;
 		});
 
 		request.get(medTermOptions, (error, response, body) => {
-			let result = formatResponse(body.items);
+			let result = formatArtistResponse(body.items);
 			artistsResponse['medium'] = result;
 		});
 
 		request.get(longTermOptions, (error, response, body) => {
-			let result = formatResponse(body.items);
+			let result = formatArtistResponse(body.items);
 			artistsResponse['long'] = result;
 		});
 	});
