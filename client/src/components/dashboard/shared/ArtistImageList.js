@@ -1,9 +1,5 @@
 import React from 'react';
-import Avatar from 'material-ui/Avatar';
 import { GridList, GridTile } from 'material-ui/GridList';
-
-import { Card, CardHeader, CardMedia } from 'material-ui/Card';
-import ReactTooltip from 'react-tooltip';
 
 const ArtistImageList = props => {
 	const artists = props.artists;
@@ -16,14 +12,18 @@ const ArtistImageList = props => {
 		},
 		gridList: {
 			width: '100%',
-			height: '1200px',
-			overflowY: 'auto'
+			display: 'flex',
+			flexWrap: 'nowrap',
+			overflowX: 'auto'
+		},
+		gridTile: {
+			fontWeight: '300'
 		}
 	};
 
 	return (
 		<div style={styles.root}>
-			<GridList cols={2} cellHeight="auto" padding={10} style={styles.gridList}>
+			<GridList cols={2.2} style={styles.gridList}>
 				{artists ? (
 					artists.map(artist => (
 						<GridTile
@@ -31,14 +31,9 @@ const ArtistImageList = props => {
 							title={artist.artistName}
 							titleBackground="linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
 							titlePosition="top"
-							style={{ fontWeight: '300', maxHeight: '200' }}
+							style={styles.gridTile}
 						>
-							<img
-								src={artist.artistImage}
-								height={'100%'}
-								width={'100%'}
-								alt={artist.artistName}
-							/>
+							<img src={artist.artistImage} alt={artist.artistName} />
 						</GridTile>
 					))
 				) : (

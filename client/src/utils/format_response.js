@@ -36,6 +36,10 @@ export function formatArtistResponse(response) {
 
 	let extraToArr = _.map(_.toPairs(extraGenres), d => _.fromPairs([d]));
 
+	if (extraToArr.length > 30) {
+		extraToArr = extraToArr.slice(0, 30);
+	}
+
 	let extraFormatted = extraToArr.map(obj => {
 		const key = Object.keys(obj)[0];
 		return {

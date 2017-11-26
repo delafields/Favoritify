@@ -1,73 +1,54 @@
 import React from 'react';
-import {
-	PieChart,
-	Pie,
-	Legend,
-	Tooltip,
-	Cell,
-	ResponsiveContainer
-} from 'recharts';
-import randomMC from 'random-material-color';
+import { VictoryPie, VictoryTooltip } from 'victory';
 
 const Graph = props => {
-	return (
-		<ResponsiveContainer minHeight={600} width="100%">
-			<PieChart>
-				<Pie
-					data={props.data}
-					innerRadius={150}
-					outerRadius={240}
-					cy={300}
-					paddingAngle={1}
-					fill="#82ca9d"
-					dataKey="count"
-				>
-					{props.data.map((entry, index) => (
-						<Cell
-							key={index}
-							fill={randomMC.getColor({
-								shades: ['A400', 'A700']
-							})}
-						/>
-						//<Cell fill={pieCellColors[index % pieCellColors.length]} />
-					))}
-				</Pie>
-				<Tooltip cursor={{ stroke: 'red', strokeWidth: 2 }} />
-			</PieChart>
-		</ResponsiveContainer>
-	);
-};
-
-/* SIMPLE BAR CHART
-import {
-	BarChart,
-	Bar,
-	XAxis,
-	YAxis,
-	ResponsiveContainer,
-	Tooltip,
-	Legend
-} from 'recharts';
-
-const Graph = props => {
+	const styles = {
+		pieAnimation: {
+			duration: 2000,
+			easing: 'bounce'
+		},
+		tooltip: {
+			fontSize: 12,
+			fontWeight: 400,
+			padding: 2,
+			fontFamily: 'Lato, sans-serif',
+			textTransform: 'capitalize',
+			fill: 'white'
+		},
+		flyout: {
+			fill: props.graphFill,
+			stroke: 'white'
+		}
+	};
 
 	return (
-		<ResponsiveContainer width={700} height={400}>
-			<BarChart
-				width={600}
-				height={300}
+		<div>
+			<VictoryPie
 				data={props.data}
-				margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-			>
-				<XAxis dataKey="name" />
-				<YAxis />
-				<Tooltip />
-				<Legend />
-				<Bar dataKey="count" fill={purpleA400} />
-			</BarChart>
-		</ResponsiveContainer>
+				animate={styles.pieAnimation}
+				x="name"
+				y="count"
+				colorScale={props.graphColor}
+				innerRadius={100}
+				labelRadius={120}
+				padAngle={1}
+				labels={d => `${d.name}: ${d.count}`}
+				labelComponent={
+					<VictoryTooltip
+						x={200}
+						y={275}
+						orientation="top"
+						pointerLength={0}
+						cornerRadius={75}
+						width={150}
+						height={150}
+						flyoutStyle={styles.flyout}
+						style={styles.tooltip}
+					/>
+				}
+			/>
+		</div>
 	);
 };
-*/
 
 export default Graph;

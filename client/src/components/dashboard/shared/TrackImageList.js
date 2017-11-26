@@ -11,15 +11,18 @@ const TrackImageList = props => {
 			justifyContent: 'space-around'
 		},
 		gridList: {
-			width: '100%',
-			height: '1200px',
-			overflowY: 'auto'
+			display: 'flex',
+			flexWrap: 'nowrap',
+			overflowX: 'auto'
+		},
+		gridTile: {
+			fontWeight: '300'
 		}
 	};
 
 	return (
 		<div style={styles.root}>
-			<GridList cols={2} cellHeight="auto" padding={10} style={styles.gridList}>
+			<GridList cols={2.2} style={styles.gridList}>
 				{artists ? (
 					artists.map(track => (
 						<GridTile
@@ -27,14 +30,9 @@ const TrackImageList = props => {
 							title={`${track.trackName} by ${track.artistName}`}
 							titleBackground="linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
 							titlePosition="top"
-							style={{ fontWeight: '300', maxHeight: '200' }}
+							style={styles.gridTile}
 						>
-							<img
-								src={track.trackImage}
-								height={'100%'}
-								width={'100%'}
-								alt={track.trackName}
-							/>
+							<img src={track.trackImage} alt={track.trackName} />
 						</GridTile>
 					))
 				) : (
