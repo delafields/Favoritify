@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../actions';
+import { fetchUser, trackThunk, artistThunk } from '../actions';
 import axios from 'axios';
 import request from 'request';
-
-import {
-	formatArtistResponse,
-	formatTrackResponse
-} from '../utils/format_response';
 import { graphColorsUtil } from '../utils/graph_colors';
 
 import SwipeableViews from 'react-swipeable-views';
@@ -29,133 +24,14 @@ class Display extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			shortTermArtists: '',
-			shortTermTracks: '',
-			shortTermGenres: [],
-			shortTermExtraGenres: [],
-			medTermArtists: '',
-			medTermTracks: '',
-			medTermGenres: [],
-			medTermExtraGenres: [],
-			longTermArtists: '',
-			longTermTracks: '',
-			longTermGenres: [],
-			longTermExtraGenres: [],
-			loading: true,
 			slideIndex: 0
 		};
-		this.fetchArtists = this.fetchArtists.bind(this);
 	}
 
 	componentDidMount() {
 		this.props.fetchUser();
-		this.fetchArtists();
-	}
-
-	fetchArtists() {
-		axios.get('/api/refresh_token').then(response => {
-			let { access_token } = response.data;
-
-			const shortTermArtistsOptions = {
-				url: `https://api.spotify.com/v1/me/top/artists?limit=20&time_range=short_term`,
-				headers: { Authorization: `Bearer ${access_token}` },
-				json: true
-			};
-
-			const shortTermTracksOptions = {
-				url: `https://api.spotify.com/v1/me/top/tracks?limit=20&time_range=short_term`,
-				headers: { Authorization: `Bearer ${access_token}` },
-				json: true
-			};
-
-			const medTermArtistsOptions = {
-				url: `https://api.spotify.com/v1/me/top/artists?limit=20&time_range=medium_term`,
-				headers: { Authorization: `Bearer ${access_token}` },
-				json: true
-			};
-
-			const medTermTracksOptions = {
-				url: `https://api.spotify.com/v1/me/top/tracks?limit=20&time_range=medium_term`,
-				headers: { Authorization: `Bearer ${access_token}` },
-				json: true
-			};
-
-			const longTermArtistsOptions = {
-				url: `https://api.spotify.com/v1/me/top/artists?limit=20&time_range=long_term`,
-				headers: { Authorization: `Bearer ${access_token}` },
-				json: true
-			};
-
-			const longTermTracksOptions = {
-				url: `https://api.spotify.com/v1/me/top/tracks?limit=20&time_range=medium_term`,
-				headers: { Authorization: `Bearer ${access_token}` },
-				json: true
-			};
-
-			request.get(shortTermArtistsOptions, (error, response, body) => {
-				let result = formatArtistResponse(body.items);
-				let artistInfo = result[0];
-				let frequentFormatted = result[1];
-				let extraFormatted = result[2];
-
-				this.setState({
-					shortTermArtists: artistInfo,
-					shortTermGenres: frequentFormatted,
-					shortTermExtraGenres: extraFormatted
-				});
-			});
-
-			request.get(medTermArtistsOptions, (error, response, body) => {
-				let result = formatArtistResponse(body.items);
-				let artistInfo = result[0];
-				let frequentFormatted = result[1];
-				let extraFormatted = result[2];
-
-				this.setState({
-					medTermArtists: artistInfo,
-					medTermGenres: frequentFormatted,
-					medTermExtraGenres: extraFormatted
-				});
-			});
-
-			request.get(longTermArtistsOptions, (error, response, body) => {
-				let result = formatArtistResponse(body.items);
-				let artistInfo = result[0];
-				let frequentFormatted = result[1];
-				let extraFormatted = result[2];
-
-				this.setState({
-					longTermArtists: artistInfo,
-					longTermGenres: frequentFormatted,
-					longTermExtraGenres: extraFormatted
-				});
-			});
-
-			request.get(shortTermTracksOptions, (error, response, body) => {
-				let result = formatTrackResponse(body.items);
-
-				this.setState({
-					shortTermTracks: result
-				});
-			});
-
-			request.get(medTermTracksOptions, (error, response, body) => {
-				let result = formatTrackResponse(body.items);
-
-				this.setState({
-					medTermTracks: result
-				});
-			});
-
-			request.get(longTermTracksOptions, (error, response, body) => {
-				let result = formatTrackResponse(body.items);
-
-				this.setState({
-					longTermTracks: result,
-					loading: false
-				});
-			});
-		});
+		this.props.trackThunk();
+		this.props.artistThunk();
 	}
 
 	handleChange = value => {
@@ -223,44 +99,67 @@ class Display extends Component {
 			}
 		};
 
-		let Loaded;
-		if (this.state.loading) {
-			Loaded = (
+		let Test;
+		let { tracksFetched, tracksFetching } = this.props.tracks;
+		let { artistsFetched, artistsFetching } = this.props.artists;
+		let {
+			shortTermArtists,
+			shortTermGenres,
+			shortTermExtraGenres,
+			medTermArtists,
+			medTermGenres,
+			medTermExtraGenres,
+			longTermArtists,
+			longTermGenres,
+			longTermExtraGenres
+		} = this.props.artists.artistData;
+		let {
+			shortTermTracks,
+			medTermTracks,
+			longTermTracks
+		} = this.props.tracks.trackData;
+		if (
+			tracksFetching === true &&
+			tracksFetched === false &&
+			artistsFetching === true &&
+			artistsFetched === false
+		) {
+			Test = (
 				<div style={styles.loadingContainer}>
 					<CircularProgress size={200} thickness={5} color={purpleA400} />
 				</div>
 			);
 		} else {
-			Loaded = (
+			Test = (
 				<div>
 					<SwipeableViews
 						index={this.state.slideIndex}
 						onChangeIndex={this.handleChange}
 					>
 						<StepContent
-							artistImages={this.state.shortTermArtists}
-							graphData={this.state.shortTermGenres}
-							extraGenres={this.state.shortTermExtraGenres}
+							artistImages={shortTermArtists}
+							graphData={shortTermGenres}
+							extraGenres={shortTermExtraGenres}
 							cloudColors={cloudColor.short}
-							trackImages={this.state.shortTermTracks}
+							trackImages={shortTermTracks}
 							graphColor={graphColorsUtil.short}
 							graphFill={indigoA700}
 						/>
 						<StepContent
-							artistImages={this.state.medTermArtists}
-							graphData={this.state.medTermGenres}
-							extraGenres={this.state.medTermExtraGenres}
+							artistImages={medTermArtists}
+							graphData={medTermGenres}
+							extraGenres={medTermExtraGenres}
 							cloudColors={cloudColor.med}
-							trackImages={this.state.medTermTracks}
+							trackImages={medTermTracks}
 							graphColor={graphColorsUtil.med}
 							graphFill={deepPurpleA700}
 						/>
 						<StepContent
-							artistImages={this.state.longTermArtists}
-							graphData={this.state.longTermGenres}
-							extraGenres={this.state.longTermExtraGenres}
+							artistImages={longTermArtists}
+							graphData={longTermGenres}
+							extraGenres={longTermExtraGenres}
 							cloudColors={cloudColor.long}
-							trackImages={this.state.longTermTracks}
+							trackImages={longTermTracks}
 							graphColor={graphColorsUtil.long}
 							graphFill={purpleA400}
 						/>
@@ -317,14 +216,22 @@ class Display extends Component {
 						value={2}
 					/>
 				</Tabs>
-				<div>{Loaded}</div>
+				<div>{Test}</div>
 			</div>
 		);
 	}
 }
 
-function mapStateToProps({ auth }) {
-	return { auth };
+function mapDispatchToProps(dispatch) {
+	return {
+		trackThunk: () => dispatch(trackThunk()),
+		artistThunk: () => dispatch(artistThunk()),
+		fetchUser: () => dispatch(fetchUser())
+	};
 }
 
-export default connect(mapStateToProps, actions)(Display);
+function mapStateToProps({ auth, tracks, artists }) {
+	return { auth, tracks, artists };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Display);

@@ -27,6 +27,9 @@ module.exports = app => {
 		};
 
 		request.post(authOptions, (error, response, body) => {
+			if (error) {
+				console.log(error);
+			}
 			if (!error && response.statusCode === 200) {
 				const access_token = body.access_token;
 				res.send({

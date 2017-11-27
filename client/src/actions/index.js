@@ -1,11 +1,28 @@
 import axios from 'axios';
 import request from 'request';
-import { formatArtistResponse } from '../utils/format_response';
+
+import {
+	formatArtistResponse,
+	formatTrackResponse
+} from '../utils/format_response';
+
+import {
+	shortTermArtistsOptions,
+	medTermArtistsOptions,
+	longTermArtistsOptions,
+	shortTermTracksOptions,
+	medTermTracksOptions,
+	longTermTracksOptions
+} from '../utils/spotify_endpoints';
+
 import {
 	FETCH_USER,
-	FETCH_REFRESH_TOKEN,
+	FETCH_TRACK_DATA,
+	FETCH_TRACK_SUCCESS,
+	FETCH_TRACK_FAILURE,
 	FETCH_ARTIST_DATA,
-	FETCH_TRACK_DATA
+	FETCH_ARTIST_SUCCESS,
+	FETCH_ARTIST_FAILURE
 } from './types';
 
 export const fetchUser = () => async dispatch => {
@@ -14,93 +31,118 @@ export const fetchUser = () => async dispatch => {
 	dispatch({ type: FETCH_USER, payload: res.data });
 };
 
-export const fetchRefreshToken = () => async dispatch => {
-	const res = await axios.get('/api/refresh_token');
+export function fetchTracksData() {
+	return {
+		type: FETCH_TRACK_DATA
+	};
+}
 
-	dispatch({ type: FETCH_REFRESH_TOKEN, payload: res.data });
-};
+export function fetchTracksSuccess(data) {
+	return {
+		type: FETCH_TRACK_SUCCESS,
+		data
+	};
+}
 
-export const fetchArtistData = () => dispatch => {
-	const artistsResponse = {};
+export function fetchTracksFailure() {
+	return {
+		type: FETCH_TRACK_FAILURE
+	};
+}
 
-	axios.get('/api/refresh_token').then(response => {
-		let { access_token } = response.data;
+export function trackThunk() {
+	return dispatch => {
+		dispatch(fetchTracksData());
 
-		const url =
-			'https://api.spotify.com/v1/me/top/artists?limit=20&time_range=';
+		axios.get('/api/refresh_token').then(response => {
+			const { access_token } = response.data;
+			const authHeader = { Authorization: `Bearer ${access_token}` };
 
-		const shortTermOptions = {
-			url: `${url}short_term`,
-			headers: { Authorization: `Bearer ${access_token}` },
-			json: true
-		};
+			shortTermTracksOptions['headers'] = authHeader;
+			medTermTracksOptions['headers'] = authHeader;
+			longTermTracksOptions['headers'] = authHeader;
 
-		const medTermOptions = {
-			url: `${url}medium_term`,
-			headers: { Authorization: `Bearer ${access_token}` },
-			json: true
-		};
+			let trackData = {};
 
-		const longTermOptions = {
-			url: `${url}long_term`,
-			headers: { Authorization: `Bearer ${access_token}` },
-			json: true
-		};
+			request.get(shortTermTracksOptions, (error, response, body) => {
+				let result = formatTrackResponse(body.items);
+				trackData.shortTermTracks = result;
+				dispatch(fetchTracksSuccess(trackData));
+			});
 
-		request.get(shortTermOptions, (error, response, body) => {
-			let result = formatArtistResponse(body.items);
-			artistsResponse['short'] = result;
+			request.get(medTermTracksOptions, (error, response, body) => {
+				let result = formatTrackResponse(body.items);
+				trackData.medTermTracks = result;
+				dispatch(fetchTracksSuccess(trackData));
+			});
+
+			request.get(longTermTracksOptions, (error, response, body) => {
+				let result = formatTrackResponse(body.items);
+				trackData.longTermTracks = result;
+				dispatch(fetchTracksSuccess(trackData));
+			});
 		});
+	};
+}
 
-		request.get(medTermOptions, (error, response, body) => {
-			let result = formatArtistResponse(body.items);
-			artistsResponse['medium'] = result;
+export function fetchArtistsData() {
+	return {
+		type: FETCH_ARTIST_DATA
+	};
+}
+
+export function fetchArtistsSuccess(data) {
+	return {
+		type: FETCH_ARTIST_SUCCESS,
+		data
+	};
+}
+
+export function fetchArtistsFailure() {
+	return {
+		type: FETCH_ARTIST_FAILURE
+	};
+}
+
+export function artistThunk() {
+	return dispatch => {
+		dispatch(fetchArtistsData());
+		axios.get('/api/refresh_token').then(response => {
+			const { access_token } = response.data;
+			const authHeader = { Authorization: `Bearer ${access_token}` };
+
+			shortTermArtistsOptions['headers'] = authHeader;
+			medTermArtistsOptions['headers'] = authHeader;
+			longTermArtistsOptions['headers'] = authHeader;
+
+			let artistData = {};
+
+			request.get(shortTermArtistsOptions, (error, response, body) => {
+				let result = formatArtistResponse(body.items);
+
+				artistData.shortTermArtists = result[0];
+				artistData.shortTermGenres = result[1];
+				artistData.shortTermExtraGenres = result[2];
+				dispatch(fetchArtistsSuccess(artistData));
+			});
+
+			request.get(medTermArtistsOptions, (error, response, body) => {
+				let result = formatArtistResponse(body.items);
+
+				artistData.medTermArtists = result[0];
+				artistData.medTermGenres = result[1];
+				artistData.medTermExtraGenres = result[2];
+				dispatch(fetchArtistsSuccess(artistData));
+			});
+
+			request.get(longTermArtistsOptions, (error, response, body) => {
+				let result = formatArtistResponse(body.items);
+
+				artistData.longTermArtists = result[0];
+				artistData.longTermGenres = result[1];
+				artistData.longTermExtraGenres = result[2];
+				dispatch(fetchArtistsSuccess(artistData));
+			});
 		});
-
-		request.get(longTermOptions, (error, response, body) => {
-			let result = formatArtistResponse(body.items);
-			artistsResponse['long'] = result;
-		});
-	});
-	dispatch({ type: FETCH_ARTIST_DATA, payload: artistsResponse });
-};
-
-export const fetchTrackData = () => dispatch => {
-	let trackData = [];
-
-	axios.get('/api/refresh_token').then(response => {
-		let { access_token } = response.data;
-
-		const STTOptions = {
-			url: `https://api.spotify.com/v1/me/top/tracks?limit=20&time_range=short_term`,
-			headers: { Authorization: `Bearer ${access_token}` },
-			json: true
-		};
-		request.get(STTOptions, (error, response, body) => {
-			const STT = body.items;
-			trackData.push(STT);
-		});
-
-		const MTTOptions = {
-			url: `https://api.spotify.com/v1/me/top/tracks?limit=20&time_range=medium_term`,
-			headers: { Authorization: `Bearer ${access_token}` },
-			json: true
-		};
-		request.get(MTTOptions, (error, response, body) => {
-			const MTT = body.items;
-			trackData.push(MTT);
-		});
-
-		const LTTOptions = {
-			url: `https://api.spotify.com/v1/me/top/tracks?limit=20&time_range=long_term`,
-			headers: { Authorization: `Bearer ${access_token}` },
-			json: true
-		};
-		request.get(LTTOptions, (error, response, body) => {
-			const LTT = body.items;
-			trackData.push(LTT);
-		});
-
-		dispatch({ type: FETCH_TRACK_DATA, payload: trackData });
-	});
-};
+	};
+}

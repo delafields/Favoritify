@@ -3,10 +3,6 @@ import { VictoryPie, VictoryTooltip } from 'victory';
 
 const Graph = props => {
 	const styles = {
-		pieAnimation: {
-			duration: 2000,
-			easing: 'bounce'
-		},
 		tooltip: {
 			fontSize: 12,
 			fontWeight: 400,
@@ -25,7 +21,6 @@ const Graph = props => {
 		<div>
 			<VictoryPie
 				data={props.data}
-				animate={styles.pieAnimation}
 				x="name"
 				y="count"
 				colorScale={props.graphColor}
