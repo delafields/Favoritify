@@ -11,12 +11,7 @@ import MyLoader from './dashboard/MyLoader';
 import SwipeableViews from 'react-swipeable-views';
 
 class Display extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			slideIndex: 0
-		};
-	}
+	state = { slideIndex: 0 };
 
 	componentDidMount() {
 		this.props.fetchUser();
