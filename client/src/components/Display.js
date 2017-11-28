@@ -1,24 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchUser, trackThunk, artistThunk } from '../actions';
-import axios from 'axios';
-import request from 'request';
-import { graphColorsUtil } from '../utils/graph_colors';
+import { fetchUser, artistThunk, trackThunk } from '../actions';
+import { graph_colors, graph_fills, cloud_colors } from '../utils/color_util';
+
+import MyAppBar from './dashboard/MyAppBar';
+import MyTabs from './dashboard/MyTabs';
+import TabContent from './dashboard/TabContent';
+import MyLoader from './dashboard/MyLoader';
 
 import SwipeableViews from 'react-swipeable-views';
-
-import RaisedButton from 'material-ui/RaisedButton';
-import AppBar from 'material-ui/AppBar';
-import { Tabs, Tab } from 'material-ui/Tabs';
-import CircularProgress from 'material-ui/CircularProgress';
-import {
-	blueGrey900,
-	indigoA700,
-	purpleA400,
-	deepPurpleA700
-} from 'material-ui/styles/colors';
-
-import StepContent from './dashboard/shared/StepContent';
 
 class Display extends Component {
 	constructor(props) {
@@ -30,8 +20,8 @@ class Display extends Component {
 
 	componentDidMount() {
 		this.props.fetchUser();
-		this.props.trackThunk();
 		this.props.artistThunk();
+		this.props.trackThunk();
 	}
 
 	handleChange = value => {
@@ -41,65 +31,6 @@ class Display extends Component {
 	};
 
 	render() {
-		const styles = {
-			appBar: {
-				title: {
-					textAlign: 'center',
-					color: 'white',
-					fontWeight: '300'
-				},
-				background: {
-					backgroundColor: blueGrey900
-				},
-				button: {
-					marginTop: '10px'
-				}
-			},
-			tabs: {
-				inkBar: {
-					background: blueGrey900,
-					height: '3px'
-				},
-				label: {
-					color: 'white',
-					fontWeight: 300
-				},
-				shortTab: {
-					backgroundColor: indigoA700
-				},
-				medTab: {
-					backgroundColor: deepPurpleA700
-				},
-				longTab: {
-					backgroundColor: purpleA400
-				}
-			},
-			loadingContainer: {
-				display: 'flex',
-				flexDirection: 'column',
-				justifyContent: 'center',
-				alignItems: 'center',
-				width: '100%',
-				height: 450
-			}
-		};
-
-		const cloudColor = {
-			short: {
-				luminosity: 'bright',
-				hue: 'blue'
-			},
-			med: {
-				luminosity: 'bright',
-				hue: 'purple'
-			},
-			long: {
-				luminosity: 'bright',
-				hue: 'pink'
-			}
-		};
-
-		let Test;
 		let { tracksFetched, tracksFetching } = this.props.tracks;
 		let { artistsFetched, artistsFetching } = this.props.artists;
 		let {
@@ -118,50 +49,48 @@ class Display extends Component {
 			medTermTracks,
 			longTermTracks
 		} = this.props.tracks.trackData;
+
+		let Content;
 		if (
-			tracksFetching === true &&
-			tracksFetched === false &&
-			artistsFetching === true &&
-			artistsFetched === false
+			tracksFetching &&
+			!tracksFetched &&
+			artistsFetching &&
+			!artistsFetched
 		) {
-			Test = (
-				<div style={styles.loadingContainer}>
-					<CircularProgress size={200} thickness={5} color={purpleA400} />
-				</div>
-			);
+			Content = <MyLoader />;
 		} else {
-			Test = (
+			Content = (
 				<div>
 					<SwipeableViews
 						index={this.state.slideIndex}
 						onChangeIndex={this.handleChange}
 					>
-						<StepContent
+						<TabContent
 							artistImages={shortTermArtists}
 							graphData={shortTermGenres}
 							extraGenres={shortTermExtraGenres}
-							cloudColors={cloudColor.short}
+							cloudColors={cloud_colors.short}
 							trackImages={shortTermTracks}
-							graphColor={graphColorsUtil.short}
-							graphFill={indigoA700}
+							graphColor={graph_colors.short}
+							graphFill={graph_fills.short}
 						/>
-						<StepContent
+						<TabContent
 							artistImages={medTermArtists}
 							graphData={medTermGenres}
 							extraGenres={medTermExtraGenres}
-							cloudColors={cloudColor.med}
+							cloudColors={cloud_colors.med}
 							trackImages={medTermTracks}
-							graphColor={graphColorsUtil.med}
-							graphFill={deepPurpleA700}
+							graphColor={graph_colors.med}
+							graphFill={graph_fills.med}
 						/>
-						<StepContent
+						<TabContent
 							artistImages={longTermArtists}
 							graphData={longTermGenres}
 							extraGenres={longTermExtraGenres}
-							cloudColors={cloudColor.long}
+							cloudColors={cloud_colors.long}
 							trackImages={longTermTracks}
-							graphColor={graphColorsUtil.long}
-							graphFill={purpleA400}
+							graphColor={graph_colors.long}
+							graphFill={graph_fills.long}
 						/>
 					</SwipeableViews>
 				</div>
@@ -170,53 +99,9 @@ class Display extends Component {
 
 		return (
 			<div>
-				<AppBar
-					title="W K M D Y L"
-					titleStyle={styles.appBar.title}
-					style={styles.appBar.background}
-					iconElementLeft={<h4>{this.props.auth.spotifyID} </h4>}
-					iconElementRight={
-						<RaisedButton
-							style={styles.appBar.button}
-							label="logout"
-							href="/api/logout"
-						/>
-					}
-				/>
-				<Tabs
-					onChange={this.handleChange}
-					value={this.state.slideIndex}
-					inkBarStyle={styles.tabs.inkBar}
-				>
-					<Tab
-						label={
-							<span style={styles.tabs.label}>
-								Short Term<br />(4 weeks)
-							</span>
-						}
-						style={styles.tabs.shortTab}
-						value={0}
-					/>
-					<Tab
-						label={
-							<span style={styles.tabs.label}>
-								Medium Term<br />(6 Months)
-							</span>
-						}
-						style={styles.tabs.medTab}
-						value={1}
-					/>
-					<Tab
-						label={
-							<span style={styles.tabs.label}>
-								Long Term<br />(Several Years)
-							</span>
-						}
-						style={styles.tabs.longTab}
-						value={2}
-					/>
-				</Tabs>
-				<div>{Test}</div>
+				<MyAppBar iconElementLeft={<h4>{this.props.auth.spotifyID} </h4>} />
+				<MyTabs onChange={this.handleChange} value={this.state.slideIndex} />
+				{Content}
 			</div>
 		);
 	}
@@ -224,14 +109,14 @@ class Display extends Component {
 
 function mapDispatchToProps(dispatch) {
 	return {
+		fetchUser: () => dispatch(fetchUser()),
 		trackThunk: () => dispatch(trackThunk()),
-		artistThunk: () => dispatch(artistThunk()),
-		fetchUser: () => dispatch(fetchUser())
+		artistThunk: () => dispatch(artistThunk())
 	};
 }
 
-function mapStateToProps({ auth, tracks, artists }) {
-	return { auth, tracks, artists };
+function mapStateToProps({ auth, artists, tracks }) {
+	return { auth, artists, tracks };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Display);

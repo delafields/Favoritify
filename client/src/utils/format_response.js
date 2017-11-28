@@ -6,6 +6,7 @@ export function formatArtistResponse(response) {
 		artistImage: band.images[0].url
 	}));
 
+	// Creates a single array of all genres
 	let allGenres = response
 		.map(band => {
 			return band.genres;
@@ -14,14 +15,18 @@ export function formatArtistResponse(response) {
 			return a.concat(b);
 		});
 
-	let genresSorted = _.countBy(allGenres, _.identity);
+	// Attaches a frequency count to each genre
+	let genreCount = _.countBy(allGenres, _.identity);
 
-	let frequentGenres = _.pickBy(genresSorted, (v, k) => {
+	// Returns genres with count > 2
+	let frequentGenres = _.pickBy(genreCount, (v, k) => {
 		return v > 2;
 	});
 
+	// Converts to array
 	let frequentToArr = _.map(_.toPairs(frequentGenres), d => _.fromPairs([d]));
 
+	// Formats to Victory graph format
 	let frequentFormatted = frequentToArr.map(obj => {
 		const key = Object.keys(obj)[0];
 		return {
@@ -30,16 +35,19 @@ export function formatArtistResponse(response) {
 		};
 	});
 
-	let extraGenres = _.pickBy(genresSorted, (v, k) => {
+	// Returns genres w/ count < 2
+	let extraGenres = _.pickBy(genreCount, (v, k) => {
 		return v <= 2;
 	});
 
+	// Converts to array
 	let extraToArr = _.map(_.toPairs(extraGenres), d => _.fromPairs([d]));
 
 	if (extraToArr.length > 30) {
 		extraToArr = extraToArr.slice(0, 30);
 	}
 
+	// Converts to word cloud format
 	let extraFormatted = extraToArr.map(obj => {
 		const key = Object.keys(obj)[0];
 		return {

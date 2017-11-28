@@ -65,18 +65,30 @@ export function trackThunk() {
 			let trackData = {};
 
 			request.get(shortTermTracksOptions, (error, response, body) => {
+				if (error) {
+					dispatch(fetchTracksFailure());
+				}
+
 				let result = formatTrackResponse(body.items);
 				trackData.shortTermTracks = result;
 				dispatch(fetchTracksSuccess(trackData));
 			});
 
 			request.get(medTermTracksOptions, (error, response, body) => {
+				if (error) {
+					dispatch(fetchTracksFailure());
+				}
+
 				let result = formatTrackResponse(body.items);
 				trackData.medTermTracks = result;
 				dispatch(fetchTracksSuccess(trackData));
 			});
 
 			request.get(longTermTracksOptions, (error, response, body) => {
+				if (error) {
+					dispatch(fetchTracksFailure());
+				}
+
 				let result = formatTrackResponse(body.items);
 				trackData.longTermTracks = result;
 				dispatch(fetchTracksSuccess(trackData));
@@ -118,6 +130,10 @@ export function artistThunk() {
 			let artistData = {};
 
 			request.get(shortTermArtistsOptions, (error, response, body) => {
+				if (error) {
+					dispatch(fetchArtistsFailure());
+				}
+
 				let result = formatArtistResponse(body.items);
 
 				artistData.shortTermArtists = result[0];
@@ -127,6 +143,10 @@ export function artistThunk() {
 			});
 
 			request.get(medTermArtistsOptions, (error, response, body) => {
+				if (error) {
+					dispatch(fetchArtistsFailure());
+				}
+
 				let result = formatArtistResponse(body.items);
 
 				artistData.medTermArtists = result[0];
@@ -136,6 +156,10 @@ export function artistThunk() {
 			});
 
 			request.get(longTermArtistsOptions, (error, response, body) => {
+				if (error) {
+					dispatch(fetchArtistsFailure());
+				}
+
 				let result = formatArtistResponse(body.items);
 
 				artistData.longTermArtists = result[0];

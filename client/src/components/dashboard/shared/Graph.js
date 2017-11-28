@@ -30,15 +30,15 @@ const Graph = props => {
 				labels={d => `${d.name}: ${d.count}`}
 				labelComponent={
 					<VictoryTooltip
+						style={styles.tooltip}
+						flyoutStyle={styles.flyout}
+						height={150}
+						width={150}
 						x={200}
 						y={275}
 						orientation="top"
 						pointerLength={0}
 						cornerRadius={75}
-						width={150}
-						height={150}
-						flyoutStyle={styles.flyout}
-						style={styles.tooltip}
 					/>
 				}
 			/>

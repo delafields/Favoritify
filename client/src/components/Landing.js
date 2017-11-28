@@ -2,6 +2,8 @@ import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import { blueGrey900 } from 'material-ui/styles/colors';
 
+import * as bgImg from '../assets/MusicEmoji.png';
+
 const Landing = () => {
 	const styles = {
 		wrapper: {
@@ -11,7 +13,9 @@ const Landing = () => {
 			flexDirection: 'column',
 			alignItems: 'center',
 			justifyContent: 'center',
-			backgroundColor: blueGrey900
+			textAlign: 'center',
+			backgroundColor: blueGrey900,
+			backgroundImage: `url(${bgImg})`
 		},
 		title: {
 			fontFamily: 'Lato, sans-serif',
@@ -19,7 +23,7 @@ const Landing = () => {
 			color: 'white'
 		},
 		spotifyLoginButton: {
-			backgroundColor: '#84bd00',
+			backgroundColor: '#1DB954',
 			color: 'white',
 			fontWeight: '300',
 			padding: '0 20px'

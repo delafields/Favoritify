@@ -27,17 +27,17 @@ const ArtistImageList = props => {
 				{artists ? (
 					artists.map(artist => (
 						<GridTile
+							style={styles.gridTile}
 							key={artist.artistName}
 							title={artist.artistName}
 							titleBackground="linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
 							titlePosition="top"
-							style={styles.gridTile}
 						>
 							<img src={artist.artistImage} alt={artist.artistName} />
 						</GridTile>
 					))
 				) : (
-					<h1>Refresh the Page</h1>
+					<h1>Whoops, there's been an error! Try refreshing the page.</h1>
 				)}
 			</GridList>
 		</div>

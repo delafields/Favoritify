@@ -6,12 +6,12 @@ import Display from './Display';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 
 export default class App extends Component {
 	render() {
 		return (
-			<MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+			<MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
 				<BrowserRouter>
 					<div>
 						<Route exact path="/" component={Landing} />

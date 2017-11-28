@@ -37,7 +37,7 @@ import {
 	purple900
 } from 'material-ui/styles/colors';
 
-export const graphColorsUtil = {
+export const graph_colors = {
 	short: [
 		indigoA100,
 		indigo200,
@@ -80,4 +80,25 @@ export const graphColorsUtil = {
 		purple800,
 		purple900
 	]
+};
+
+export const graph_fills = {
+	short: indigoA700,
+	med: deepPurpleA700,
+	long: purpleA400
+};
+
+export const cloud_colors = {
+	short: {
+		luminosity: 'bright',
+		hue: 'blue'
+	},
+	med: {
+		luminosity: 'bright',
+		hue: 'purple'
+	},
+	long: {
+		luminosity: 'bright',
+		hue: 'pink'
+	}
 };
