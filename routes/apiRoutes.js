@@ -1,17 +1,18 @@
 const request = require('request');
 const keys = require('../config/keys');
+const requireLogin = require('../middlewares/requireLogin');
 
 module.exports = app => {
-	app.get('/api/logout', (req, res) => {
+	app.get('/api/logout', requireLogin, (req, res) => {
 		req.logout();
 		res.redirect('/');
 	});
 
-	app.get('/api/current_user', (req, res) => {
+	app.get('/api/current_user', requireLogin, (req, res) => {
 		res.send(req.user);
 	});
 
-	app.get('/api/refresh_token', (req, res) => {
+	app.get('/api/refresh_token', requireLogin, (req, res) => {
 		const refresh_token = req.user.spotifyRefreshToken;
 		const encoded_keys = new Buffer(
 			keys.SPOTIFY_CLIENT_ID + ':' + keys.SPOTIFY_CLIENT_SECRET
