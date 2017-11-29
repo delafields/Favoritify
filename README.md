@@ -10,10 +10,13 @@ See your top genres, artists, and tracks of the last 4 weeks, 6 months, or ...
 
 ## Screenshots
 ---
+**Full Site**
 ![Full Site Gif](http://g.recordit.co/8VJipIWXAu.gif)
 
+**Tracks List**
 ![Top Tracks Gif](http://g.recordit.co/EMDIOnsGy4.gif)
 
+**Genre graph**
 ![Genres Gif](http://g.recordit.co/1anzOzODSX.gif)
 
 ## Tech
@@ -28,9 +31,9 @@ See your top genres, artists, and tracks of the last 4 weeks, 6 months, or ...
 
 ### To Do
 
-[ ] Chunk JS
-[ ] Add some kind of export functionality
-[ ] Add Apple Music functionality
+* [ ] Chunk JS
+* [ ] Add some kind of export functionality
+* [ ] Add Apple Music functionality
 
 # License
 ---
