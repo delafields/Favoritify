@@ -6,6 +6,13 @@ export function formatArtistResponse(response) {
 		artistImage: band.images[0].url
 	}));
 
+	let avgArtistPopularity = _.divide(
+		_.sumBy(response, band => {
+			return band.popularity;
+		}),
+		20
+	);
+
 	// Creates a single array of all genres
 	let allGenres = response
 		.map(band => {
@@ -56,14 +63,98 @@ export function formatArtistResponse(response) {
 		};
 	});
 
-	return [artistInfo, frequentFormatted, extraFormatted];
+	return [artistInfo, frequentFormatted, extraFormatted, avgArtistPopularity];
 }
 
 export function formatTrackResponse(response) {
-	let artistInfo = response.map(track => ({
+	let trackInfo = response.map(track => ({
 		trackName: track.name,
 		artistName: track.artists['0'].name,
 		trackImage: track.album.images[0].url
 	}));
-	return artistInfo;
+
+	let trackIDs = response
+		.map(track => {
+			return track.id;
+		})
+		.join(',');
+
+	let avgTrackPopularity = _.divide(
+		_.sumBy(response, band => {
+			return band.popularity;
+		}),
+		20
+	);
+
+	return [trackInfo, avgTrackPopularity, trackIDs];
+}
+
+export function formatFeaturesResponse(response) {
+	let audioFeatures = {};
+	let features = [
+		'danceability',
+		'energy',
+		'loudness',
+		'tempo',
+		'valence',
+		'instrumentalness',
+		'liveness',
+		'speechiness'
+	];
+
+	_.forEach(features, feature => {
+		audioFeatures[feature] = _.round(
+			_.divide(
+				_.sumBy(response, track => {
+					return track[feature];
+				}),
+				20
+			),
+			2
+		);
+	});
+
+	/*
+	audioFeatures.danceability =
+		_.sumBy(response, track => {
+			return track.danceability;
+		}) / 20;
+
+	audioFeatures.energy =
+		_.sumBy(response, track => {
+			return track.energy;
+		}) / 20;
+
+	audioFeatures.loudness =
+		_.sumBy(response, track => {
+			return track.loudness;
+		}) / 20;
+
+	audioFeatures.tempo =
+		_.sumBy(response, track => {
+			return track.tempo;
+		}) / 20;
+
+	audioFeatures.valence =
+		_.sumBy(response, track => {
+			return track.valence;
+		}) / 20;
+
+	audioFeatures.instrumentalness =
+		_.sumBy(response, track => {
+			return track.instrumentalness;
+		}) / 20;
+
+	audioFeatures.liveness =
+		_.sumBy(response, track => {
+			return track.liveness;
+		}) / 20;
+
+	audioFeatures.speechiness =
+		_.sumBy(response, track => {
+			return track.speechiness;
+		}) / 20;
+		*/
+
+	return audioFeatures;
 }

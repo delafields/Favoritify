@@ -3,6 +3,10 @@ const artistURL =
 const trackURL =
 	'https://api.spotify.com/v1/me/top/tracks?limit=20&time_range=';
 
+export const featuresOptions = {
+	json: true
+};
+
 export const shortTermArtistsOptions = {
 	url: `${artistURL}short_term`,
 	json: true
@@ -29,6 +33,6 @@ export const medTermTracksOptions = {
 };
 
 export const longTermTracksOptions = {
-	url: `${trackURL}medium_term`,
+	url: `${trackURL}long_term`,
 	json: true
 };

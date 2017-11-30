@@ -35,6 +35,9 @@ See your top genres, artists, and tracks of the last 4 weeks, 6 months, or ...
 
 ### To Do
 
+* [ ] Add Avg Popularity component
+* [ ] Add Audio Features component(s)
+* [ ] Add Recommendation component
 * [ ] Chunk JS
 * [ ] Add some kind of export functionality
 * [ ] Add Apple Music functionality

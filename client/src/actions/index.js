@@ -3,7 +3,8 @@ import request from 'request';
 
 import {
 	formatArtistResponse,
-	formatTrackResponse
+	formatTrackResponse,
+	formatFeaturesResponse
 } from '../utils/format_response';
 
 import {
@@ -12,7 +13,8 @@ import {
 	longTermArtistsOptions,
 	shortTermTracksOptions,
 	medTermTracksOptions,
-	longTermTracksOptions
+	longTermTracksOptions,
+	featuresOptions
 } from '../utils/spotify_endpoints';
 
 import {
@@ -57,10 +59,12 @@ export function trackThunk() {
 		axios.get('/api/refresh_token').then(response => {
 			const { access_token } = response.data;
 			const authHeader = { Authorization: `Bearer ${access_token}` };
+			const featuresURL = `https://api.spotify.com/v1/audio-features/?ids=`;
 
 			shortTermTracksOptions['headers'] = authHeader;
 			medTermTracksOptions['headers'] = authHeader;
 			longTermTracksOptions['headers'] = authHeader;
+			featuresOptions['headers'] = authHeader;
 
 			let trackData = {};
 
@@ -70,7 +74,16 @@ export function trackThunk() {
 				}
 
 				let result = formatTrackResponse(body.items);
-				trackData.shortTermTracks = result;
+				trackData.shortTermTracks = result[0];
+				trackData.shortTermTrackPopularity = result[1];
+
+				featuresOptions['url'] = `${featuresURL}${result[2]}`;
+				request.get(featuresOptions, (error, response, body) => {
+					trackData.shortTermAudioFeatures = formatFeaturesResponse(
+						response.body.audio_features
+					);
+				});
+
 				dispatch(fetchTracksSuccess(trackData));
 			});
 
@@ -80,7 +93,16 @@ export function trackThunk() {
 				}
 
 				let result = formatTrackResponse(body.items);
-				trackData.medTermTracks = result;
+				trackData.medTermTracks = result[0];
+				trackData.medTermTrackPopularity = result[1];
+
+				featuresOptions['url'] = `${featuresURL}${result[2]}`;
+				request.get(featuresOptions, (error, response, body) => {
+					trackData.medTermAudioFeatures = formatFeaturesResponse(
+						response.body.audio_features
+					);
+				});
+
 				dispatch(fetchTracksSuccess(trackData));
 			});
 
@@ -90,7 +112,16 @@ export function trackThunk() {
 				}
 
 				let result = formatTrackResponse(body.items);
-				trackData.longTermTracks = result;
+				trackData.longTermTracks = result[0];
+				trackData.longTermTrackPopularity = result[1];
+
+				featuresOptions['url'] = `${featuresURL}${result[2]}`;
+				request.get(featuresOptions, (error, response, body) => {
+					trackData.longTermAudioFeatures = formatFeaturesResponse(
+						response.body.audio_features
+					);
+				});
+
 				dispatch(fetchTracksSuccess(trackData));
 			});
 		});
@@ -135,10 +166,11 @@ export function artistThunk() {
 				}
 
 				let result = formatArtistResponse(body.items);
-
 				artistData.shortTermArtists = result[0];
 				artistData.shortTermGenres = result[1];
 				artistData.shortTermExtraGenres = result[2];
+				artistData.shortTermArtistPopularity = result[3];
+
 				dispatch(fetchArtistsSuccess(artistData));
 			});
 
@@ -148,10 +180,11 @@ export function artistThunk() {
 				}
 
 				let result = formatArtistResponse(body.items);
-
 				artistData.medTermArtists = result[0];
 				artistData.medTermGenres = result[1];
 				artistData.medTermExtraGenres = result[2];
+				artistData.medTermArtistPopularity = result[3];
+
 				dispatch(fetchArtistsSuccess(artistData));
 			});
 
@@ -161,10 +194,11 @@ export function artistThunk() {
 				}
 
 				let result = formatArtistResponse(body.items);
-
 				artistData.longTermArtists = result[0];
 				artistData.longTermGenres = result[1];
 				artistData.longTermExtraGenres = result[2];
+				artistData.longTermArtistPopularity = result[3];
+
 				dispatch(fetchArtistsSuccess(artistData));
 			});
 		});
