@@ -24,7 +24,7 @@ const MyAppBar = props => {
 
 	return (
 		<AppBar
-			title="W K M D Y L"
+			title="FAVORITIFY"
 			titleStyle={styles.title}
 			style={styles.root}
 			iconStyleLeft={styles.leftIcon}

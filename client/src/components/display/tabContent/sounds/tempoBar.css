@@ -1,0 +1,30 @@
+.tempo-bar:nth-child(1) {
+	height: 15px;
+}
+.tempo-bar:nth-child(2) {
+	height: 22px;
+}
+.tempo-bar:nth-child(3) {
+	height: 15px;
+}
+.tempo-bar:nth-child(4) {
+	height: 20px;
+}
+.tempo-bar:nth-child(5) {
+	height: 25px;
+}
+.tempo-bar:nth-child(6) {
+	height: 20px;
+}
+.tempo-bar:nth-child(7) {
+	height: 17px;
+}
+.tempo-bar:nth-child(8) {
+	height: 20px;
+}
+.tempo-bar:nth-child(9) {
+	height: 10px;
+}
+.tempo-bar:nth-child(10) {
+	height: 20px;
+}

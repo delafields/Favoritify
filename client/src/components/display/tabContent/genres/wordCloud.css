@@ -1,0 +1,10 @@
+@-webkit-keyframes blinker {
+	50% {
+		opacity: 0;
+	}
+}
+@keyframes blinker {
+	50% {
+		opacity: 0;
+	}
+}

@@ -1,3 +1,5 @@
+/* Various spotify endpoints */
+
 const artistURL =
 	'https://api.spotify.com/v1/me/top/artists?limit=20&time_range=';
 const trackURL =

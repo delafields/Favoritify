@@ -33,9 +33,13 @@ const Landing = () => {
 	return (
 		<div style={styles.wrapper}>
 			<h1 style={styles.title}>What Kind Of Music Do You Like?</h1>
-			<FlatButton href="/auth/spotify" style={styles.spotifyLoginButton}>
-				Sign In With Spotify
-			</FlatButton>
+			<FlatButton
+				href="/auth/spotify"
+				style={styles.spotifyLoginButton}
+				icon={<i className="fa fa-spotify fa-2x" aria-hidden="true" />}
+				label={'Sign In With Spotify'}
+				labelPosition="before"
+			/>
 		</div>
 	);
 };

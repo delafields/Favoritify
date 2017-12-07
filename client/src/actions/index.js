@@ -72,19 +72,23 @@ export function trackThunk() {
 				if (error) {
 					dispatch(fetchTracksFailure());
 				}
-
 				let result = formatTrackResponse(body.items);
 				trackData.shortTermTracks = result[0];
 				trackData.shortTermTrackPopularity = result[1];
 
-				featuresOptions['url'] = `${featuresURL}${result[2]}`;
+				let trackIDs = result[2];
+				featuresOptions['url'] = `${featuresURL}${trackIDs}`;
+
 				request.get(featuresOptions, (error, response, body) => {
+					if (error) {
+						dispatch(fetchTracksFailure());
+					}
+
 					trackData.shortTermAudioFeatures = formatFeaturesResponse(
 						response.body.audio_features
 					);
 				});
-
-				dispatch(fetchTracksSuccess(trackData));
+				//dispatch(fetchTracksSuccess(trackData));
 			});
 
 			request.get(medTermTracksOptions, (error, response, body) => {
@@ -96,14 +100,18 @@ export function trackThunk() {
 				trackData.medTermTracks = result[0];
 				trackData.medTermTrackPopularity = result[1];
 
-				featuresOptions['url'] = `${featuresURL}${result[2]}`;
+				let trackIDs = result[2];
+				featuresOptions['url'] = `${featuresURL}${trackIDs}`;
 				request.get(featuresOptions, (error, response, body) => {
+					if (error) {
+						dispatch(fetchTracksFailure());
+					}
 					trackData.medTermAudioFeatures = formatFeaturesResponse(
 						response.body.audio_features
 					);
 				});
 
-				dispatch(fetchTracksSuccess(trackData));
+				//dispatch(fetchTracksSuccess(trackData));
 			});
 
 			request.get(longTermTracksOptions, (error, response, body) => {
@@ -115,14 +123,19 @@ export function trackThunk() {
 				trackData.longTermTracks = result[0];
 				trackData.longTermTrackPopularity = result[1];
 
-				featuresOptions['url'] = `${featuresURL}${result[2]}`;
+				let trackIDs = result[2];
+				featuresOptions['url'] = `${featuresURL}${trackIDs}`;
 				request.get(featuresOptions, (error, response, body) => {
+					if (error) {
+						dispatch(fetchTracksFailure());
+					}
 					trackData.longTermAudioFeatures = formatFeaturesResponse(
 						response.body.audio_features
 					);
+					dispatch(fetchTracksSuccess(trackData));
 				});
 
-				dispatch(fetchTracksSuccess(trackData));
+				//dispatch(fetchTracksSuccess(trackData));
 			});
 		});
 	};

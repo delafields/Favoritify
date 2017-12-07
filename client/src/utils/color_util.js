@@ -1,3 +1,4 @@
+/* Various colors to be sent as props */
 import {
 	indigoA100,
 	indigo200,
@@ -37,6 +38,7 @@ import {
 	purple900
 } from 'material-ui/styles/colors';
 
+/* Colors to fill the genre pie graphs */
 export const graph_colors = {
 	short: [
 		indigoA100,
@@ -82,12 +84,14 @@ export const graph_colors = {
 	]
 };
 
-export const graph_fills = {
-	short: indigoA700,
-	med: deepPurpleA700,
-	long: purpleA400
+/* Tab theme sent as props */
+export const tab_color = {
+	short: 'blue',
+	med: '#6200EA',
+	long: '#D500F9'
 };
 
+/* Colors for the extra genres word cloud */
 export const cloud_colors = {
 	short: {
 		luminosity: 'bright',
