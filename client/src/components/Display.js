@@ -16,13 +16,18 @@ class Display extends Component {
 		slideIndex: 0,
 		shortDialogOpen: false,
 		medDialogOpen: false,
-		longDialogOpen: false
+		longDialogOpen: false,
+		loading: true
 	};
 
 	componentDidMount() {
 		this.props.fetchUser();
 		this.props.artistThunk();
 		this.props.trackThunk();
+		/* Testing this to see if it solves the slow Sounds async */
+		setTimeout(() => {
+			this.setState({ loading: false });
+		}, 7000);
 	}
 
 	handleTabChange = value => {
@@ -89,15 +94,23 @@ class Display extends Component {
 		/* Show loader until data is fetched */
 		let Content;
 		if (
+			/*
 			tracksFetching &&
 			!tracksFetched &&
 			artistsFetching &&
-			!artistsFetched
+			!artistsFetched &&
+			*/
+			this.state.loading === true
 		) {
 			Content = <RecordLoader />;
 		} else {
 			Content = (
 				<div>
+					<MyAppBar iconElementLeft={<h4>{this.props.auth.spotifyID} </h4>} />
+					<MyTabs
+						onChange={this.handleTabChange}
+						value={this.state.slideIndex}
+					/>
 					<SwipeableViews
 						index={this.state.slideIndex}
 						onChangeIndex={this.handleTabChange}
@@ -157,13 +170,7 @@ class Display extends Component {
 			);
 		}
 
-		return (
-			<div>
-				<MyAppBar iconElementLeft={<h4>{this.props.auth.spotifyID} </h4>} />
-				<MyTabs onChange={this.handleTabChange} value={this.state.slideIndex} />
-				{Content}
-			</div>
-		);
+		return <div>{Content}</div>;
 	}
 }
 
