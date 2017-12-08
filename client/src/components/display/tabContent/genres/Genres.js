@@ -31,11 +31,10 @@ const Genres = props => {
 		},
 		list: {
 			minWidth: '320px',
-			marginLeft: '80px',
 			marginBottom: '60px'
 		},
 		listItem: {
-			margin: '20px 0px'
+			margin: '20px 0 10px 80px'
 		},
 		listText: {
 			color: 'white',
@@ -54,7 +53,7 @@ const Genres = props => {
 		<Paper zDepth={2} rounded={false} style={styles.container}>
 			<h1 style={styles.title}>Top Genres</h1>
 			<div style={styles.contentWrapper}>
-				<div id="noSelect" style={styles.graph}>
+				<div className="noSelect" style={styles.graph}>
 					<GenrePie data={props.graphData} graphColor={props.graphColor} />
 				</div>
 				<div style={styles.list}>

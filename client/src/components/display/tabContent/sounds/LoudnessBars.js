@@ -17,6 +17,8 @@ const LoudnessBars = props => {
 			    width: 180px;
 			    display: flex;
 			    transform: rotate(0.5turn);
+					-webkit-transform: rotate(0.5turn);
+					-ms-transform: rotate(0.5turn);
 					margin-right: 20px;
         }
 
@@ -49,16 +51,27 @@ const LoudnessBars = props => {
           }
         }
 
-				.loud-bar:nth-child(1)  { left: 1px;  animation-duration: 474ms; }
-				.loud-bar:nth-child(2)  { left: 20px; animation-duration: 433ms; }
-				.loud-bar:nth-child(3)  { left: 40px; animation-duration: 407ms; }
-				.loud-bar:nth-child(4)  { left: 60px; animation-duration: 458ms; }
-				.loud-bar:nth-child(5)  { left: 80px; animation-duration: 400ms; }
-				.loud-bar:nth-child(6)  { left: 100px; animation-duration: 427ms; }
-				.loud-bar:nth-child(7)  { left: 120px; animation-duration: 441ms; }
-				.loud-bar:nth-child(8)  { left: 140px; animation-duration: 419ms; }
-				.loud-bar:nth-child(9)  { left: 160px; animation-duration: 487ms; }
-				.loud-bar:nth-child(10) { left: 180px;  animation-duration: 442ms; }
+				@-webkit-keyframes loud-sound {
+					0% {
+						opacity: .35;
+						height: 1px;
+					}
+					100% {
+						opacity: 1;
+						height: ${formatLoudness}px;
+					}
+				}
+
+				.loud-bar:nth-child(1)  { left: 1px;  animation-duration: 474ms; -webkit-animation-duration: 474ms; }
+				.loud-bar:nth-child(2)  { left: 20px; animation-duration: 433ms; -webkit-animation-duration: 433ms; }
+				.loud-bar:nth-child(3)  { left: 40px; animation-duration: 407ms; -webkit-animation-duration: 407ms; }
+				.loud-bar:nth-child(4)  { left: 60px; animation-duration: 458ms; -webkit-animation-duration: 458ms; }
+				.loud-bar:nth-child(5)  { left: 80px; animation-duration: 400ms; -webkit-animation-duration: 400ms; }
+				.loud-bar:nth-child(6)  { left: 100px; animation-duration: 427ms; -webkit-animation-duration: 427ms; }
+				.loud-bar:nth-child(7)  { left: 120px; animation-duration: 441ms; -webkit-animation-duration: 441ms; }
+				.loud-bar:nth-child(8)  { left: 140px; animation-duration: 419ms; -webkit-animation-duration: 419ms; }
+				.loud-bar:nth-child(9)  { left: 160px; animation-duration: 487ms; -webkit-animation-duration: 487ms; }
+				.loud-bar:nth-child(10) { left: 180px;  animation-duration: 442ms; -webkit-animation-duration: 442ms; }
         `}
 
 				<div id="loud-bars">

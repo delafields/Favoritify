@@ -24,7 +24,7 @@ See...
 
 ![Top Tracks Gif](https://media.giphy.com/media/3o6fJghV1DCOHbM7HG/giphy.gif)
 
-##### **You want what to describe what your faves sound like?**
+##### **You want to describe what your faves sound like?**
 
 ![Genres Gif](https://media.giphy.com/media/3ohs7YDcQZLNiaYVoc/giphy.gif)
 

@@ -21,6 +21,8 @@ const TempoBars = props => {
 			    width: 180px;
 			    display: flex;
 			    transform: rotate(0.5turn);
+					-webkit-transform: rotate(0.5turn);
+					-ms-transform: rotate(0.5turn);
 					margin-right: 20px;
         }
 
@@ -51,7 +53,8 @@ const TempoBars = props => {
 					background: ${tabColor};
 			    width: 20px;
 			    animation: tempo-sound 0ms -800ms cubic-bezier(0.755, 0.050, 0.855, 0.060) infinite alternate;
-        }
+					-webkit-animation: tempo-sound 0ms -800ms cubic-bezier(0.755, 0.050, 0.855, 0.060) infinite alternate;
+				}
 
         @keyframes tempo-sound {
           0% {
@@ -63,16 +66,26 @@ const TempoBars = props => {
           }
         }
 
-				.tempo-bar:nth-child(1)  { left: 1px; animation-duration: ${formatTempoAnim}ms; }
-				.tempo-bar:nth-child(2)  { left: 20px; animation-duration: ${formatTempoAnim}ms; }
-				.tempo-bar:nth-child(3)  { left: 40px; animation-duration: ${formatTempoAnim}ms; }
-				.tempo-bar:nth-child(4)  { left: 60px; animation-duration: ${formatTempoAnim}ms; }
-				.tempo-bar:nth-child(5)  { left: 80px; animation-duration: ${formatTempoAnim}ms; }
-				.tempo-bar:nth-child(6)  { left: 100px; animation-duration: ${formatTempoAnim}ms; }
-				.tempo-bar:nth-child(7)  { left: 120px; animation-duration: ${formatTempoAnim}ms; }
-				.tempo-bar:nth-child(8)  { left: 140px; animation-duration: ${formatTempoAnim}ms; }
-				.tempo-bar:nth-child(9)  { left: 160px; animation-duration: ${formatTempoAnim}ms; }
-				.tempo-bar:nth-child(10) { left: 180px; animation-duration: ${formatTempoAnim}ms; }
+				@-webkit-keyframes tempo-sound {
+					0% {
+						opacity: .35;
+					}
+					100% {
+						opacity: 1;
+						height: ${formatTempoBars}px;
+					}
+				}
+
+				.tempo-bar:nth-child(1)  { left: 1px; animation-duration: ${formatTempoAnim}ms; -webkit-animation-duration: ${formatTempoAnim}ms; }
+				.tempo-bar:nth-child(2)  { left: 20px; animation-duration: ${formatTempoAnim}ms; -webkit-animation-duration: ${formatTempoAnim}ms; }
+				.tempo-bar:nth-child(3)  { left: 40px; animation-duration: ${formatTempoAnim}ms; -webkit-animation-duration: ${formatTempoAnim}ms; }
+				.tempo-bar:nth-child(4)  { left: 60px; animation-duration: ${formatTempoAnim}ms; -webkit-animation-duration: ${formatTempoAnim}ms; }
+				.tempo-bar:nth-child(5)  { left: 80px; animation-duration: ${formatTempoAnim}ms; -webkit-animation-duration: ${formatTempoAnim}ms; }
+				.tempo-bar:nth-child(6)  { left: 100px; animation-duration: ${formatTempoAnim}ms; -webkit-animation-duration: ${formatTempoAnim}ms; }
+				.tempo-bar:nth-child(7)  { left: 120px; animation-duration: ${formatTempoAnim}ms; -webkit-animation-duration: ${formatTempoAnim}ms; }
+				.tempo-bar:nth-child(8)  { left: 140px; animation-duration: ${formatTempoAnim}ms; -webkit-animation-duration: ${formatTempoAnim}ms; }
+				.tempo-bar:nth-child(9)  { left: 160px; animation-duration: ${formatTempoAnim}ms; -webkit-animation-duration: ${formatTempoAnim}ms; }
+				.tempo-bar:nth-child(10) { left: 180px; animation-duration: ${formatTempoAnim}ms; -webkit-animation-duration: ${formatTempoAnim}ms; }
         `}
 
 			<div id="tempo-bars">

@@ -10,16 +10,15 @@ import { red500 } from 'material-ui/styles/colors';
 const ExtraGenres = props => {
 	const styles = {
 		button: {
-			root: {
-				marginTop: '30px',
-				width: '60%'
-			}
+			width: '60%',
+			margin: '20px 20% 0 20%'
 		},
 		dialogTitle: {
 			textAlign: 'center',
 			color: 'white',
 			backgroundColor: 'black',
 			fontWeight: '300',
+			fontSize: '14px',
 			border: '1px dotted white',
 			borderBottom: '1px solid black'
 		}
@@ -31,7 +30,7 @@ const ExtraGenres = props => {
 				backgroundColor={'white'}
 				label="Extra Genres"
 				onClick={props.handleDialogOpen}
-				style={styles.button.root}
+				style={styles.button}
 			/>
 			<Dialog
 				title="Spotify tags their songs with over 1000 genres. Here are some of the more esoteric ones that showed up for you."
@@ -46,6 +45,7 @@ const ExtraGenres = props => {
 				modal={false}
 				open={props.isDialogOpen}
 				onRequestClose={props.handleDialogClose}
+				autoScrollBodyContent={true}
 			>
 				<WordCloud
 					extraGenres={props.extraGenres}
