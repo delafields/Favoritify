@@ -683,10 +683,6 @@ raw-body@2.3.2:
     iconv-lite "0.4.19"
     unpipe "1.0.0"
 
-react-lib-adler32@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/react-lib-adler32/-/react-lib-adler32-1.0.1.tgz#01f7a0e24fe715580aadb8a827c39a850e1ccc4e"
-
 readable-stream@2.2.7:
   version "2.2.7"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.2.7.tgz#07057acbe2467b22042d36f98c5ad507054e95b1"
@@ -698,10 +694,6 @@ readable-stream@2.2.7:
     process-nextick-args "~1.0.6"
     string_decoder "~1.0.0"
     util-deprecate "~1.0.1"
-
-redux-thunk@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.2.0.tgz#e615a16e16b47a19a515766133d1e3e99b7852e5"
 
 regexp-clone@0.0.1, regexp-clone@^0.0.1:
   version "0.0.1"
@@ -843,12 +835,6 @@ strip-ansi@^0.3.0:
   resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-0.3.0.tgz#25f48ea22ca79187f3174a4db8759347bb126220"
   dependencies:
     ansi-regex "^0.2.1"
-
-style-it@^1.6.13:
-  version "1.6.13"
-  resolved "https://registry.yarnpkg.com/style-it/-/style-it-1.6.13.tgz#b57f01e3fd15a6c39b8386793f604471b1b9c90d"
-  dependencies:
-    react-lib-adler32 "^1.0.0"
 
 supports-color@^0.2.0:
   version "0.2.0"

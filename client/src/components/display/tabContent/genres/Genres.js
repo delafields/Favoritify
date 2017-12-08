@@ -73,6 +73,8 @@ const Genres = props => {
 						isDialogOpen={props.isDialogOpen}
 						handleDialogOpen={props.handleDialogOpen}
 						handleDialogClose={props.handleDialogClose}
+						extraGenres={props.extraGenres}
+						cloudColors={props.cloudColors}
 					/>
 				</div>
 			</div>

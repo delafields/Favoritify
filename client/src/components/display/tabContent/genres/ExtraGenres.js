@@ -11,10 +11,8 @@ const ExtraGenres = props => {
 	const styles = {
 		button: {
 			root: {
-				margin: '10px 20px 0 30px'
-			},
-			label: {
-				color: 'white'
+				marginTop: '30px',
+				width: '60%'
 			}
 		},
 		dialogTitle: {
@@ -30,8 +28,7 @@ const ExtraGenres = props => {
 	return (
 		<div>
 			<FlatButton
-				backgroundColor={'black'}
-				labelStyle={styles.button.label}
+				backgroundColor={'white'}
 				label="Extra Genres"
 				onClick={props.handleDialogOpen}
 				style={styles.button.root}

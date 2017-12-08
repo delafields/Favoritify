@@ -32,7 +32,7 @@ const RecordLoader = () => {
 					<circle
 						stroke="#673AB7"
 						fill="none"
-						stroke-width="2"
+						strokeWidth="2"
 						cx="112.109"
 						cy="121.223"
 						r="35.333"
@@ -40,7 +40,7 @@ const RecordLoader = () => {
 					<circle
 						stroke="#304FFE"
 						fill="none"
-						stroke-width="2"
+						strokeWidth="2"
 						cx="112.109"
 						cy="121.223"
 						r="31.333"
@@ -48,7 +48,7 @@ const RecordLoader = () => {
 					<circle
 						stroke="#D500F9"
 						fill="none"
-						stroke-width="2"
+						strokeWidth="2"
 						cx="112.109"
 						cy="121.223"
 						r="27.333"
@@ -56,7 +56,7 @@ const RecordLoader = () => {
 					<circle
 						stroke="#000"
 						fill="none"
-						stroke-width="13"
+						strokeWidth="13"
 						cx="112.109"
 						cy="121.223"
 						r="15.333"
@@ -88,7 +88,7 @@ const RecordLoader = () => {
 					<path
 						fill="#FFFFFF"
 						stroke="black"
-						stroke-width="3"
+						strokeWidth="3"
 						d="M195.152 38.158c5.11-1.505 8.845-6.226 8.845-11.825 0-6.81-5.52-12.333-12.333-12.333-6.81 0-12.333 5.52-12.333 12.333 0 3.628 1.577 6.88 4.07 9.137l-11.943 91.183c-1.618-.176-3.246.638-4.014 2.18l-12.033 24.17c-.985 1.978-.18 4.378 1.797 5.363l9.847 4.9c1.977.987 4.38.182 5.363-1.796l5.317-10.68 4.804 2.73 1.482-2.608-4.948-2.812 5.378-10.8c.962-1.933.207-4.262-1.675-5.286.083-.244.145-.5.18-.764l12.197-93.092z"
 					/>
 				</g>

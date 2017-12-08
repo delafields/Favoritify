@@ -36,6 +36,7 @@ class Display extends Component {
 		});
 	};
 
+	/* For the extra genres button. Dumb hack. */
 	handleShortDialogOpen = () => {
 		this.setState({ shortDialogOpen: true });
 	};
