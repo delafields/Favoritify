@@ -1,6 +1,6 @@
 import React from 'react';
 import { TagCloud } from 'react-tagcloud';
-import './wordCloud.css';
+import './styles/wordCloud.css';
 
 /* Generates randomly sized, softly blinking words */
 const customRenderer = (tag, size, color) => (

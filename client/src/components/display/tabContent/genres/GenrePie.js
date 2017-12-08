@@ -17,7 +17,8 @@ const GenrePie = props => {
 		},
 		sliceLabel: {
 			fontSize: 20,
-			fontFamily: 'Lato, sans-serif'
+			fontFamily: 'Lato, sans-serif',
+			fill: 'white'
 		},
 		sliceLabelSubtitle: {
 			fontSize: 12,

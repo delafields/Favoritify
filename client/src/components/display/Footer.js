@@ -10,28 +10,33 @@ import Paper from 'material-ui/Paper';
 const Footer = () => {
 	const styles = {
 		container: {
-			display: 'flex',
-			marginTop: '-5px'
+			display: 'flex'
 		},
 		left: {
 			width: 'calc(100% / 3)',
 			backgroundColor: purpleA400,
-			textAlign: 'center'
+			display: 'flex',
+			alignItems: 'center',
+			justifyContent: 'center'
 		},
 		center: {
 			width: 'calc(100% / 3)',
 			backgroundColor: deepPurpleA700,
-			textAlign: 'center'
+			display: 'flex',
+			alignItems: 'center',
+			justifyContent: 'center'
 		},
 		right: {
 			width: 'calc(100% / 3)',
 			backgroundColor: indigoA700,
-			textAlign: 'center'
+			textAlign: 'center',
+			display: 'flex',
+			alignItems: 'center',
+			justifyContent: 'center'
 		},
 		octocat: {
 			color: 'white',
-			cursor: 'pointer',
-			marginTop: '5px'
+			cursor: 'pointer'
 		},
 		text: {
 			color: blueGrey900
@@ -41,15 +46,15 @@ const Footer = () => {
 	return (
 		<Paper rounded={false} z-depth={2} style={styles.container}>
 			<div style={styles.left}>
-				<h3 style={styles.text}>FAVORITIFY</h3>
+				<h4 style={styles.text}>FAVORITIFY</h4>
 			</div>
 			<div style={styles.center}>
 				<a href="https://github.com/delafields" style={styles.octocat}>
-					<i className="fa fa-github fa-4x" aria-hidden="true" />
+					<i className="fa fa-github fa-3x" aria-hidden="true" />
 				</a>
 			</div>
 			<div style={styles.right}>
-				<h3 style={styles.text}>&copy; delafields 2017</h3>
+				<h4 style={styles.text}>&copy; delafields 2017</h4>
 			</div>
 		</Paper>
 	);

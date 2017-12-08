@@ -1,6 +1,6 @@
 import React from 'react';
 import Style from 'style-it';
-import './tempoBar.css';
+import './styles/tempoBar.css';
 
 /* Generates bars based on avg track tempo */
 const TempoBars = props => {

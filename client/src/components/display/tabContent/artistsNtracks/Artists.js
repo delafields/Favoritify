@@ -8,16 +8,23 @@ const Artists = props => {
 	const popularity = props.avgArtistPopularity;
 
 	const styles = {
+		container: {
+			display: 'flex',
+			flexDirection: 'column',
+			alignItems: 'center',
+			position: 'relative',
+			marginBottom: '40px'
+		},
 		list: {
 			height: '500px',
-			width: '70%',
-			minWidth: '320px',
+			width: '80%',
+			minWidth: '280px',
 			display: 'flex',
 			flexDirection: 'row',
 			flexWrap: 'wrap',
 			justifyContent: 'space-around',
 			overflowY: 'scroll',
-			marginBottom: '40px'
+			paddingBottom: '60px'
 		},
 		listItem: {
 			width: '200px',
@@ -56,18 +63,28 @@ const Artists = props => {
 			height: '100px',
 			width: '80%',
 			minWidth: '300px',
-			marginRight: '20%',
-			marginLeft: '20%',
-			marginBottom: '20px'
+			maxWidth: '500px',
+			marginRight: '10%',
+			marginLeft: '10%'
 		},
 		popularityBarHeader: {
 			margin: '0',
 			textAlign: 'center'
 		}
+		/* Maybe
+		fadeBox: {
+			position: 'absolute',
+			bottom: '0',
+			height: '100px',
+			width: '100%',
+			background:
+				'linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 1))'
+		}
+		*/
 	};
 
 	return (
-		<div style={styles.list}>
+		<div style={styles.container}>
 			<div style={styles.popularityBar}>
 				{popularity ? (
 					<div>
@@ -78,25 +95,28 @@ const Artists = props => {
 					<h1>Loading...</h1>
 				)}
 			</div>
-			{artists ? (
-				artists.map(artist => (
-					<div style={styles.listItem} key={artist.artistName}>
-						<img
-							src={artist.artistImage}
-							alt={artist.artistName}
-							style={styles.artistImage}
-						/>
-						<Paper zDepth={2} rounded={false} style={styles.listItemContent}>
-							<h3 style={styles.artistName}>{artist.artistName}</h3>
-							<h6 style={styles.popularity}>
-								Popularity: {artist.artistPopularity}
-							</h6>
-						</Paper>
-					</div>
-				))
-			) : (
-				<h1> </h1>
-			)}
+			<div style={styles.list}>
+				{artists ? (
+					artists.map(artist => (
+						<div style={styles.listItem} key={artist.artistName}>
+							<img
+								src={artist.artistImage}
+								alt={artist.artistName}
+								style={styles.artistImage}
+							/>
+							<Paper zDepth={3} rounded={false} style={styles.listItemContent}>
+								<h3 style={styles.artistName}>{artist.artistName}</h3>
+								<h6 style={styles.popularity}>
+									Popularity: {artist.artistPopularity}
+								</h6>
+							</Paper>
+						</div>
+					))
+				) : (
+					<h1> </h1>
+				)}
+			</div>
+			<div style={styles.fadeBox} />
 		</div>
 	);
 };

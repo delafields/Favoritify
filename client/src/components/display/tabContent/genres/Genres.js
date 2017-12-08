@@ -2,6 +2,7 @@ import React from 'react';
 import GenrePie from './GenrePie';
 import ExtraGenres from './ExtraGenres';
 import Paper from 'material-ui/Paper';
+import './styles/genrePie.css';
 
 /* Container for genre graph, list and dialog */
 const Genres = props => {
@@ -23,7 +24,7 @@ const Genres = props => {
 			padding: '20px'
 		},
 		graph: {
-			minWidth: '320px',
+			minWidth: '300px',
 			width: '50%',
 			maxWidth: '600px',
 			marginBottom: '20px'
@@ -51,9 +52,9 @@ const Genres = props => {
 
 	return (
 		<Paper zDepth={2} rounded={false} style={styles.container}>
-			<h1 style={styles.title}>Your Top Genres</h1>
+			<h1 style={styles.title}>Top Genres</h1>
 			<div style={styles.contentWrapper}>
-				<div style={styles.graph}>
+				<div id="noSelect" style={styles.graph}>
 					<GenrePie data={props.graphData} graphColor={props.graphColor} />
 				</div>
 				<div style={styles.list}>

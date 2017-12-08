@@ -37,9 +37,14 @@ const Sounds = props => {
 			alignItems: 'center',
 			minWidth: '320px'
 		},
-		barContainer: {
+		loudnessBarContainer: {
 			display: 'flex',
 			alignItems: 'flex-end'
+		},
+		tempoBarContainer: {
+			display: 'flex',
+			alignItems: 'flex-end',
+			marginBottom: '20px'
 		},
 		barTitle: {
 			marginTop: '20px',
@@ -73,7 +78,7 @@ const Sounds = props => {
 						<h2 style={styles.title}>Descriptions</h2>
 						<FeatureDescriptions />
 						<h2 style={styles.barTitle}>Loudness</h2>
-						<div style={styles.barContainer}>
+						<div style={styles.loudnessBarContainer}>
 							<LoudnessBars
 								loudness={features[0].loudness}
 								tabColor={props.tabColor}
@@ -94,7 +99,7 @@ const Sounds = props => {
 							</svg>
 						</div>
 						<h2 style={styles.barTitle}>Tempo</h2>
-						<div style={styles.barContainer}>
+						<div style={styles.tempoBarContainer}>
 							<TempoBars
 								tempo={features[0].tempo}
 								tempoName={features[0].tempoName}
