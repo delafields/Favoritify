@@ -22,7 +22,9 @@ const GenrePie = props => {
 		},
 		sliceLabelSubtitle: {
 			fontSize: 12,
-			fontFamily: 'Lato, sans-serif'
+			fontFamily: 'Lato, sans-serif',
+			fill: 'white',
+			fillOpacity: '0.7'
 		}
 	};
 
@@ -40,7 +42,7 @@ const GenrePie = props => {
 				style={styles.sliceLabelSubtitle}
 				x={200}
 				y={210}
-				text="# of times they showed up for you"
+				text="(# of times they showed up for you)"
 			/>
 			<VictoryPie
 				data={props.data}
