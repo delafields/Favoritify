@@ -19,6 +19,10 @@ const Sounds = props => {
 			padding: '20px 0 0 20px',
 			color: 'white'
 		},
+		subtitle: {
+			margin: '0 0 0 20px',
+			color: 'white'
+		},
 		contentWrapper: {
 			display: 'flex',
 			flexWrap: 'wrap',
@@ -69,6 +73,9 @@ const Sounds = props => {
 	return (
 		<Paper style={styles.container}>
 			<h1 style={styles.title}>Sounds</h1>
+			<h3 style={styles.subtitle}>
+				These are the auditory features your favorite songs are composed of.
+			</h3>
 			{features ? (
 				<div style={styles.contentWrapper}>
 					<div style={styles.leftContainer}>

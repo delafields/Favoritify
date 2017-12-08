@@ -8,7 +8,7 @@ export const audio_features = [
 	{
 		name: 'energy',
 		description:
-			'Represents a perceptual measure of intensity and activity. ypically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale.'
+			'Represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale.'
 	},
 	{
 		name: 'danceability',

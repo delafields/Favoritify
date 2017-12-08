@@ -124,13 +124,13 @@ export function formatFeaturesResponse(response) {
 	let temp = {};
 	let features = [
 		'danceability',
+		'speechiness',
 		'energy',
-		'loudness',
-		'tempo',
 		'valence',
 		'instrumentalness',
 		'liveness',
-		'speechiness'
+		'tempo',
+		'loudness'
 	];
 
 	/* Averages each feature (above) */
